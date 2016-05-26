@@ -1,0 +1,112 @@
+svg {
+  background-color: #FFF;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+svg:not(.active):not(.ctrl) {
+  cursor: crosshair;
+}
+
+path.link {
+  fill: none;
+  stroke: #000;
+  stroke-width: 4px;
+  cursor: default;
+}
+
+svg:not(.active):not(.ctrl) path.link {
+  cursor: pointer;
+}
+
+path.link.selected {
+  stroke-dasharray: 10,2;
+}
+
+path.link.dragline {
+  pointer-events: none;
+}
+
+path.link.hidden {
+  stroke-width: 0;
+}
+
+circle.node {
+  stroke-width: 1.5px;
+  cursor: pointer;
+}
+
+circle.node.reflexive {
+  stroke: #000 !important;
+  stroke-width: 2.5px;
+}
+
+text {
+  font: 12px sans-serif;
+  pointer-events: none;
+}
+
+text.id {
+  text-anchor: middle;
+  font-weight: bold;
+}
+
+iframe {
+  width: 100%;
+  height: 500px;
+  border: 1px solid #DEDEDE;
+    /* width: 50%; */
+  margin: 0 auto;
+}
+
+.container {
+    /* width: 50%; */
+    /* margin: 0 auto; */
+    float: none;
+    margin: 0 auto;
+}
+
+.container-fluid > .sidebar {
+    position: relative;
+    top: 0;
+    left:auto;
+    width: 200px;
+}
+
+.left {
+    float:left;
+}
+
+.right {
+    float:right;
+}
+
+.container-fluid > .content {
+    margin: 0 140px;
+}
+
+/* For tabs in the login page*/
+.tab-pane {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0px 0px 5px 5px;
+    padding: 10px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
+
+/* For the sliders */
+.slider .slider-track-high {
+	background: #bbb;
+}
+
+.slider .slider-selection {
+	background: #f0ad4e;
+}

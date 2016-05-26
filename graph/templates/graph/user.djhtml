@@ -1,0 +1,93 @@
+{% extends "graph/index.djhtml" %}
+{% load staticfiles %}
+
+{% block navbar_extra_buttons %}
+  <li class="navbar-text">
+      <div> <b> Time remaining: </b> <span id="time_countdown"></span></div>
+  </li>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Logged as: {{ username }} <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+      <li><a> Graph: {{ graph }}</a></li>
+      <li><a> Start Node: {{ start }} </a></li>
+      <li><a> Destination Node: {{ destination }} </a></li>
+      <li><a> Total Flow: {{ flow }} </a></li>
+        <input id="graph-hidden" type="hidden" name="graph" value="{{ graph }}" />
+        <input id="username-hidden" type="hidden" name="graph" value="{{ username }}" />
+        <input id="source-hidden" type="hidden" name="graph" value="{{ start }}" />
+        <input id="bot-hidden" type="hidden" name="graph" value="{{ is_bot }}" />
+        <input id="destination-hidden" type="hidden" name="graph" value="{{ destination }}" />
+    </ul>
+  </li>
+  <li>
+    <p class="navbar-btn">
+      <a id="start-game-btn" class="btn btn-default " href="{% url 'logout' %}" role="button">Logout</a>
+    </p>
+  </li>
+{% endblock %}
+
+  <!-- <a id="start-game-btn" class="btn btn-default" href="#" role="button">Start Game</a> -->
+
+{% block top_right%}
+
+  <input type="hidden" id="game_name" name="game_name" value="{{ game_name }}">
+  <div>
+    <div id="path-display-list">
+    </div>
+    <div id="path-btns" style="display: none" align="right">
+      <a id="submit-game-btn" class="btn btn-default hidden" href="#" role="button">Submit</a>
+      <!-- <a id="show-cost-btn" class="btn btn-default" href="#" role="button">Show cost</a> -->
+    </div>
+    <div id="completed-turn" style="display: none" align="right">
+      <p> You finished your turn! </p>
+    </div>
+   
+
+    <a id="show-edge-btn" class="btn btn-default " href="#" role="button">Show edge costs</a>
+    <a id="clear-edge-btn" class="btn btn-default " href="#" role="button">Clear edge costs</a>
+
+  </div>
+{% endblock %}
+
+{% block top_left %}
+{% endblock %}
+
+{% block left_right %}
+{% endblock %}
+
+{% block bottom %}
+<input id="game-mode" value="{{ game_mode }}" type="hidden" >
+
+<!-- c3 charts -->
+  <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-6">
+      <div class='chart panel panel-info'>
+        <div class="panel-heading">Previous Cost</div>
+        <div id='chart'></div>
+      </div>
+    </div>
+    <!-- <div class="col-md-4">
+    <div class='cumulative_chart panel panel-info'>
+    <div class="panel-heading">Cumulative Cost</div>
+    <div id='cumulative_chart'></div>
+    </div>
+    </div> -->
+    <div class="col-md-6">
+      <div class='flows_chart panel panel-info'>
+        <div class="panel-heading">Previous Flows</div>
+        <div id='flows_chart'></div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <!-- end c3 charts -->
+{% endblock %}
+
+{% block scripts %}
+  <script>
+  var is_admin = false;
+  </script>
+
+  </script><script src="{% static 'graph/user.js' %}"></script>
+{% endblock %}

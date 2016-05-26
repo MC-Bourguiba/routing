@@ -1,0 +1,61 @@
+<script type="text/javascript">
+    var weights = [];
+</script>
+
+<div class="panel panel-primary">
+<div class="panel-heading">Input</div>
+    <table class="table table-hover table-bordered">
+       <thead>
+          <tr>
+             <th>Path</th>
+             <th>Previous cost</th>
+             <th>Cumulative cost</th>
+             <th>Weight</th>
+             <th>Current Flows</th>
+             <th>Previous Flows</th>
+          </tr>
+       </thead>
+       <tbody id="path-list">
+          {% for i, id, weight, previous_cost, cumulative_cost, flow in path_idxs %}
+            <tr>
+              <td><a id="{{ id }}" href='#'>Path {{ i }} </a></td>
+              <td><p id="previous_cost_table_{{ i }}"> {{previous_cost|floatformat:3}}</p></td>
+              <td><p id="cumulative_cost_table_{{ i }}"> {{cumulative_cost|floatformat:3}}</p></td>
+              <td>
+              <div style="float:left;">
+                <input class="path_slider" id="ex{{i}}" class="slider" type="text" data-slider-min="0"
+                       data-slider-max="100" data-slider-step="1" data-slider-value="{{ weight }}" />
+              </div>
+              </td>
+              <td><p id="current_flow{{i}}"> </p></td>
+              <td><p id="previous_flow_table_{{ i }}"> {{flow|floatformat:3}} </p></td>
+            </tr>
+
+            <script type="text/javascript">
+                var slider{{i}} = new Slider('#ex{{i}}', {
+                    tooltip: 'always',
+                    formatter: function(value) {
+                        weights[{{i}}] = value;
+                        return value/100;
+                    }
+                });
+            </script>
+          {% endfor %}
+       <script type="text/javascript">
+        window.setInterval(function(){
+            total_current_weight = weights.reduce(function(pv, cv) { return pv + cv; }, 0);
+            for (i = 0; i < weights.length; i++) {
+                if(total_current_weight > 0) {
+                    flow = weights[i] / total_current_weight;
+                } else {
+                    flow = 1./weights.length;
+                }
+                document.getElementById('current_flow'+i).innerHTML = flow.toFixed(3);
+            }
+        }, 100);
+       </script>
+
+       </tbody>
+    </table>
+
+</div>

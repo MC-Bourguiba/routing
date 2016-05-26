@@ -1,0 +1,211 @@
+{% extends "graph/index.djhtml" %}
+{% load staticfiles %}
+
+{% block navbar_extra_buttons %}
+
+<li class="navbar-text">
+    <div> <b> Time remaining: </b> <span id="time_countdown"></span></div>
+</li>
+<li><p class="navbar-btn">
+  <a id="start-game-btn" class="btn btn-default " href="{% url 'logout' %}" role="button">Logout</a>
+</p></li>
+{% endblock %}
+
+{% block top_left %}
+
+<input type="hidden" id="game_name" name="game_name" value="{{ game_name }}">
+
+<div class="row">
+      <div class="col-md-5">
+          <div class="btn-group btn-toggle" id="graph-user-btn">
+            <button class="btn btn-primary active" id="show-graphs-btn">Graphs</button>
+            <button class="btn btn-default" id="show-users-btn">Users</button>
+            <!-- <button class="btn btn-default" id="show-games-btn">Games</button> -->
+            <!-- <button class="btn btn-default" id="show-users-btn">Users</button> -->
+          </div>
+
+          <div class="list-group" id="graph-list-display">
+            {% for name in graph_names %}
+              <a href="#" class="list-group-item">{{ name }}</a>
+            {% endfor %}
+          </div>
+
+          <div class="list-group hidden" id="user-list-display">
+            {% for name in usernames %}
+              <a href="#" class="list-group-item">{{ name }}</a>
+            {% endfor %}
+          </div>
+
+          <div class="btn-group" role="group">
+            <a id="save-graph-btn" class="btn btn-default" href="#" role="button">Save graph</a>
+            <a id="load-graph-btn" class="btn btn-default" href="#" role="button">Load graph</a>
+            <a id="show-predictions-btn" class="btn btn-default" href="#" role="button">Show predictions</a>
+
+            <div class="input-group" style="margin-top: 10px; margin-bottom: 10px;">
+                <input type="text" class="form-control bfh-number" data-bind="value:replyNumber"
+                       id="game-input"/>
+                <span class="input-group-btn">
+                    <button id="add-game-btn" class="btn btn-default" type="button">Add game</button>
+                </span>
+            </div>
+
+            <a id="go-game-btn" class="btn btn-default" href="#" role="button">Go to game</a>
+            <a id="load-game-btn" class="btn btn-default" href="#" role="button">Load game</a>
+            <a id="assign-graph-to-game" class="btn btn-default" href="#" role="button">Assign graph to  game</a>
+             <a id="get-graph-game" class="btn btn-default" href="#" role="button">Get game graph</a>
+             <div id="graph-game"></div>
+             <a id="assign-user-model" class="btn btn-default" href="#" role="button">Assign model to user</a>
+             <a id="assign-pm-to-p" class="btn btn-default" href="#" role="button">Assign players model to players randomly</a>
+             <a id="clear-path" class="btn btn-default" href="#" role="button">clear paths cache</a>
+             <a id="generate-pm" class="btn btn-default" href="#" role="button">generate PM for selected graph</a>
+
+          </div>
+           <p> Connected players : {{connected}}</p>
+      </div>
+
+      <div class="col-md-2">
+          <button class="btn btn-primary active" id="show-graphs-btn">Games</button>
+          <div class="list-group" id="game-list-display">
+              {% for game in games %}
+                  {% if game.currently_in_use %}
+                  <a href="#" class="list-group-item currently_in_use" style="color:#53AF8B">{{ game }}</a>
+                  {% else %}
+                  <a href="#" class="list-group-item">{{ game }}</a>
+                  {% endif %}
+              {% endfor %}
+          </div>
+      </div>
+
+      <div class="col-md-5">
+        <span class="label label-default" >Player Model</span>
+        <div class="control-group" id="fields">
+          <div class="controls" id="profs">
+            <form class="input-append">
+              <div id="field">
+                <input autocomplete="off" class="input" id="model-name" name="model_name" type="text" placeholder="Model name"/>
+                <button id="add-model" class="btn add-more" type="button">+</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div id="model-display-list">
+          {% for name in model_names %}
+            <a href="#" class="list-group-item">
+              {{ name }}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+</div>
+{% endblock %}
+
+{% block mid_left %}
+{% endblock %}
+
+{% block mid_right %}
+{% endblock %}
+
+{% block bottom %}
+  <div class="container-fluid" id="user-operation-pane" class="hidden">
+    <div class="row-fluid">
+      <div class="col-md-3">
+
+        <div class="input-group" style="margin-top: 10px; margin-bottom: 10px;">
+          <input type="text" class="form-control bfh-number" data-bind="value:replyNumber"
+                 id="flow-input"/>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" id="assign-flow-btn">Assign flow</button>
+          </span>
+        </div>
+        <span class="label label-primary">Simple cost in terms of x. Example: x + 1</span>
+        <div class="input-group" style="margin-top: 10px; margin-bottom: 10px;">
+          <input type="text" class="form-control"
+                 id="cost-input"/>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" id="assign-cost-btn">Assign cost </button>
+          </span>
+        </div>
+        <button class="btn btn-default" type="button" id="assign-all-cost-btn">Assign cost to all </button>
+
+      </div>
+      <div class="col-md-3">
+          <div class="input-group" style="margin-top: 10px; margin-bottom: 10px;">
+              <input type="text" class="form-control bfh-number" data-bind="value:replyNumber"
+                     id="duration-input"/>
+              <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" id="assign-duration-btn">Assign duration</button>
+              </span>
+          </div>
+      </div>
+      <div class="col-md-2" style="overflow: hidden;">
+          <div id="user-model-info-pane" style="float: left; margin-right: 10px;" align="left">
+          </div>
+          <div id="model-info-pane" align="right">
+          </div>
+      </div>
+      <div class="col-md-4" >
+          <a id="assign-game" class="btn btn-default" href="#" role="button">Assign game</a>
+          <a id="assign-start-node" class="btn btn-default" href="#" role="button">Assign start node</a>
+          <a id="assign-destination-node" class="btn btn-default" href="#" role="button">Assign destination node</a>
+          <a id="assign-graph" class="btn btn-default" href="#" role="button">Assign graph</a>
+          <a id="start-game" class="btn btn-default {{ hidden }}" href="#" role="button">Start game</a>
+          <a id="set-countdown" class="btn btn-default {{ hidden }}" href="#" role="button">Set wait countdown</a>
+          <a id="start-countdown" class="btn btn-default {{ hidden }}" href="#" role="button">Start wait countdown</a>
+
+          <a id="stop-countdown" class="btn btn-default {{ hidden }}" href="#" role="button">Stop wait countdown</a>
+          <p id="wait"></p>
+
+          <a id="stop-game" class="btn btn-default {{ hidden }}" href="#" role="button">Stop game</a>
+          <!-- <a id="turn-off-edge" class="btn btn-default {{ hidden }}" href="#" role="button">Turn off edge</a>
+          <a id="turn-on-edge" class="btn btn-default {{ hidden }}" href="#" role="button">Turn on edge</a> -->
+          <a id="save-data-btn" class="btn btn-default" href="#" role="button">Save data</a>
+          <div id="slider-game-mode-checkbox" class="checkbox">
+              <label>
+                  <input id="slider-game-mode-input" type="checkbox" value="" {{ single_slider_mode }}>
+                  Single slider mode.
+              </label>
+          </div>
+          <p> Selected node:  <span id="selected-node"></span>  </p>
+          <p> Selected edge: <span id="selected-edge"></span> </p>
+          <p> Edge cost function: <span id="edge-cost-function"></span> </p>
+          <p> Assigned game: <span id="assigned-game"></span> </p>
+          <input id="duration-hidden" type="hidden" name="graph" value="{{ duration }}" />
+      </div>
+    </div>
+    <!-- <div class="row-fluid">
+    <div class="col-md-4">
+
+    </div>
+    </div> -->
+  </div>
+
+{% endblock %}
+
+
+{% block top_right %}
+  <!-- c3 charts -->
+  <div class='chart panel panel-info'>
+    <div class="panel-heading">Previous Cost</div>
+    <div id='chart'>
+    </div>
+  </div>
+
+  <div class='learning panel panel-info'>
+      <div class="panel-heading">Learning Rates</div>
+      <div id='learning_chart'>
+      </div>
+  </div>
+
+  <div class='prediction panel panel-info'>
+      <div class="panel-heading">Predictions</div>
+      <div id='predictions_chart'>
+      </div>
+  </div>
+
+  <!-- end c3 charts -->
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'graph/root.js' %}"></script>
+
+{% endblock %}

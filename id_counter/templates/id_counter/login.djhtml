@@ -1,0 +1,21 @@
+{% extends "id_counter/base.djhtml" %}
+{% block content %}
+
+  <div class="container">
+
+    <div class="starter-template">
+      <h1>Login using ID</h1>
+
+      <form class="form" role="form" method="POST" action="">
+        {% csrf_token %}
+        <div class="form-group">
+          <label class="control-label" >User ID </label>
+          <input type="text" class="form-control" name="user_id">
+          <input type="submit" class="btn btn-primary" value="Join" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "graph/base.djhtml" %}
+{% load staticfiles %}
+
+{% block content %}
+
+
+{% endblock %}
+
+
+{% block scripts %}
+{% endblock %}

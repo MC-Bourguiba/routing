@@ -1,0 +1,56 @@
+{% load staticfiles %}
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+          rel="stylesheet" media="screen">
+    <link href="{% static 'bootstrap/css/jumbotron.css' %}" rel="stylesheet">
+    <link href="{% static 'graph/app.css' %}" rel="stylesheet">
+    <link href="{% static 'slider/bootstrap-slider.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap-switch/bootstrap-switch.css' %}" rel="stylesheet">
+    <link href="{% static 'c3/c3.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'bootstrap-switch/doc.min.css' %}" rel="stylesheet"> -->
+    <script src="{% static 'd3/d3.v3.min.js' %}"></script>
+    <script src="{% static 'c3/c3.min.js' %}"></script>
+ </head>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <a class="navbar-brand" href="{% url 'graph' %}">Routing game</a>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          {% block navbar_extra_buttons %}
+          {% endblock %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <body>
+    {% block content %}
+    {% endblock %}
+  </body>
+
+  <script src="{% static 'jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'slider/bootstrap-slider.js' %}"></script>
+  <script src="{% static 'graph/ui.js' %}"></script>
+  <script src="{% static 'bootstrap-switch/bootstrap-switch.js' %}"></script>
+  <script src="{% static 'graph/common.js' %}"></script>
+  {% block scripts %}
+  {% endblock %}
+</html>
