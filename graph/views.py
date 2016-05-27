@@ -39,7 +39,7 @@ from django.contrib.auth.models import User
 
 from django.core.cache import cache
 from ai import *
-
+from one_to_one_game import *
 import simplejson as json
 
 
@@ -60,8 +60,9 @@ waiting_time = 10
 cache.set('waiting_time',waiting_time)
 cache.set('current_game_stopped ',False)
 cache.set('end_game',False)
-use_intermediate_room = False
 use_end_template = False
+a_game_being_played_currently = False
+notified_once = False
 AMAZON_HOST = "https://workersandbox.mturk.com/mturk/externalSubmit"
 
 
@@ -155,7 +156,7 @@ def dump_data_fixture(filename):
         f.write(buf.read())
 
 
-current_game = 'game'
+current_game = 'game_1'
 
 
 
@@ -171,9 +172,9 @@ def create_account(request):
 
         if form.is_valid():
             new_user = form.save()
-            game = Game.objects.get(name=current_game)
 
-            if create_new_player(new_user, game, 'superuser' in request.POST.dict()):
+
+            if create_new_player(new_user,  'superuser' in request.POST.dict()):
                 return HttpResponseRedirect('/graph/index')
             else:
                 pass
@@ -224,10 +225,11 @@ def show_graph(request):
 
 
     user = User.objects.get(username=request.user.username)
+    player = Player.objects.get(user=user)
     connected_users = len(Player.objects.filter(is_a_bot = False))-1
     if not user.player.superuser:
         template = 'graph/user.djhtml'
-        if not(g.started) or no_more_games_left():
+        if player.game == None or ((not(g.started) or no_more_games_left()) or user.player.game.name != Game.objects.get(currently_in_use=True).name) :
             return HttpResponseRedirect ("/graph/waiting_room/")
         try:
             g = user.player.game
@@ -695,8 +697,8 @@ def get_previous_cost(request, username):
 
   
 def get_user_graph_cost(request,username,graph_name):
-    user = User.objects.get(username=username)
-    game = Game.objects.get(graph__name=graph_name)
+
+
     iteration =  0
     used_pms = PlayerModel.objects.filter(graph__name=graph_name)
     user_with_same_pm = 0
@@ -705,11 +707,9 @@ def get_user_graph_cost(request,username,graph_name):
     for used_pm in used_pms:
         if username in used_pm.historic_player:
             pm_to_use = used_pm
-    for us in User.objects.all():
-        pl = Player.objects.get(user=us)
-        if pl.user.username in pm_to_use.historic_player:
-            user_with_same_pm=user_with_same_pm+1
+
     player = Player.objects.get(user__username=username)
+    game = Game.objects.get(name=player.game.name)
     path_ids = list(Path.objects.filter(player_model=pm_to_use).values_list('id', flat=True))
     path_idxs = range(len(path_ids))
 
@@ -1069,16 +1069,16 @@ def current_state(request):
 
   
 def start_game(request):
-
     #data = json.loads(request.body)
 
     #game = Game.objects.get(name=data['game'])
     game = Game.objects.get(currently_in_use = True)
     global current_game_stopped
     global current_game_started
+    global a_game_being_played_currently
     current_game_stopped = False
     current_game_started = True
-
+    a_game_being_played_currently = True
 
 
     if(game.started):
@@ -1102,11 +1102,12 @@ def start_game(request):
 def stop_game(request):
     global current_game_stopped
     global current_game_started
-    global use_intermediate_room
 
+    global a_game_being_played_currently
     current_game_stopped = True
     current_game_started = False
-    use_intermediate_room = True
+
+    a_game_being_played_currently = False
     data = json.loads(request.body)
     game = Game.objects.get(currently_in_use = True)
     dump_data_fixture('graph-' + str(game.graph.name)+'-'+str(datetime.now()) + '.json')
@@ -1116,11 +1117,14 @@ def stop_game(request):
         cache.delete(get_hash(user.username) + 'allocation')
         cache.delete(get_hash(user.username) + 'path_ids')
     #generate_player_model()
-    switch_game()
+
+    #if Player.objects.filter(tested= False,superuser=False).count()>0:
+       # prepare_for_next_game()
+        #select_players_for_game()
 
     response = dict()
     response['success'] = True
-    response['use_intermediate'] = use_intermediate_room
+
     response['use_end'] = no_more_games_left()
 
     return JsonResponse(response)
@@ -1231,12 +1235,24 @@ def set_game_mode(request):
 @login_required
 def waiting_room(request):
     user = User.objects.get(username=request.user.username)
+    player = Player.objects.get(user=user)
     response = dict()
     response['Success']=True
     template = 'graph/user_wait.djhtml'
     if not cache.get("waiting_time"):
         cache.set("waiting_time", waiting_time)
-    if (int(cache.get("waiting_time"))<0  or user.player.game.started) and not(no_more_games_left()):
+    if user.player.game == None:
+        response['username'] = user.username
+        response['rank'] = player.rank
+        response['reminder_rank'] = player.rank %10
+        response['html'] = render_to_string('graph/one_vs_one.djhtml', response)
+        if  player.rank ==1 and Game.objects.get(currently_in_use=True).stopped:
+            prepare_for_next_game()
+            select_players_for_game()
+            response['game_created'] = True
+        return render(request,template,response)
+
+    if user.player.game.name == Game.objects.get(currently_in_use=True).name and ((int(cache.get("waiting_time"))<0  or user.player.game.started) and not(no_more_games_left())):
          return HttpResponseRedirect('/graph/accounts/profile/')
 
 
@@ -1246,10 +1262,8 @@ def waiting_room(request):
     response['username'] = user.username
     response['time_countdown'] = cache.get('waiting_time')
     response['started_game'] = user.player.game.started
-    if no_more_games_left():
+    if player.game.stopped:
         html = render_to_string('graph/end_game.djhtml', response)
-    elif use_intermediate_room:
-        html = render_to_string('graph/intermediate_room.djhtml', response)
 
     else:
 
@@ -1270,10 +1284,16 @@ def waiting_countdown(request):
   
 @login_required
 def get_countdown(request):
+    user = User.objects.get(username=request.user.username)
+    player = Player.objects.get(user=user)
     global current_game_started
     response= dict()
+    response['user']=user.username
     response['countdown'] =cache.get('waiting_time')
-    response ['started'] = current_game_started
+    if player.game == None or (player.tested and player.game.stopped):
+        response ['started'] = False
+    else:
+        response ['started'] = player.game.started
     response['game_left'] = no_more_games_left()
     return JsonResponse(response)
 
@@ -1309,12 +1329,21 @@ def assign_player_model_to_player(request):
   
 @login_required
 def heartbeat(request):
+
     post_data = request.POST
     username = post_data['username']
+    player = Player.objects.get(user__username=username)
     timestamp = post_data['timestamp']
     cache.set(username + '_ts', timestamp)
     response =dict()
+
+    if player.game != None and not cache.get(str(username)+'notified') :
+        response['game_available'] = True
+        cache.set(str(username)+'notified',True)
+
     response['ts'] = cache.get(username + '_ts')
+    response['notifed_once'] = notified_once
+    response['queue_rank'] = str(username)+' '+str(player.rank)
     response['current_game_stopped'] = current_game_stopped
     return JsonResponse(response)
 

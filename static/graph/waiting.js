@@ -40,7 +40,7 @@ setInterval(heartbeat_loop,1000);
 function get_username() {
     return $("#user")[0].value;
 }
-
+var not_notified_once = true;
 function get_countdown(){
 $.ajax({
         url : "/graph/get_countdown/",
@@ -51,15 +51,17 @@ $.ajax({
             if(json['game_left']){
             console.log("test");
             }
-            else if(json['countdown']>=0){
-            console.log("countdown");
-            document.getElementById("wait").innerHTML=json['countdown'];
-            }
 
             else if(json['started']){
             console.log("game has started");
             window.location.reload();
             }
+            else if(json['countdown']>=0){
+            console.log("countdown");
+            document.getElementById("wait").innerHTML=json['countdown'];
+            }
+
+
             else if
             (json['game_left']){
             console.log("test");
@@ -85,10 +87,15 @@ function heartbeat_loop() {
         url : "/graph/heartbeat/",
         type : "POST",
         data : {"username": username,
-                "timestamp": ts},
+                "timestamp": ts
+                },
 
         success : function(json) {
-            console.log(json);
+            if(json['game_available']&& not_notified_once){
+              console.log('test_game_created');
+              setTimeout(window.location.reload(),4000);
+              not_notified_once = false
+            }
         }
 
     });

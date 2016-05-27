@@ -6,7 +6,7 @@ from datetime import datetime
 from utils import *
 from models import *
 from ai import *
-
+from one_to_one_game import  *
 import redis_lock
 from redis_lock import StrictRedis
 
@@ -14,22 +14,23 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def create_new_player(user, game, superuser):
+def create_new_player(user,superuser):
     success = False
-    graph = game.graph
     player = Player(user=user)
+    player.rank = Player.objects.filter(tested=False,superuser=False).count()+1
     player.save()
     # player.user = user
-    player.game = game
+    #player.game = game
 
 
 
 
     success = True
 
+
+
     player.superuser = superuser
     player.save()
-
     return success
 
 

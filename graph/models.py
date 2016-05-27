@@ -45,8 +45,10 @@ class PlayerModel(models.Model):
 class Player(models.Model):
     user = models.OneToOneField(User, null=True, blank=True)
     player_model = models.ForeignKey(PlayerModel, blank=True, null=True)
+    rank = models.IntegerField(default=0)
     # completed_task = models.BooleanField(default=False)
     game = models.ForeignKey('Game', null=True, blank=True)
+    tested = models.BooleanField(default=False)
     is_a_bot = models.BooleanField(default=False)
     # flow_distribution = models.ForeignKey('FlowDistribution', null=True, blank=True)
     superuser = models.BooleanField(default=False)

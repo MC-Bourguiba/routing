@@ -63,8 +63,7 @@ def switch_game():
         initial_turn.save()
         next_game.current_turn = initial_turn
         next_game.save()
-        #for old_player in Player.objects.filter(game = current_game,superuser= False):
-            #new_player = Player(old_player.user)
+
 
         assign_user_to_player_model()
     except :
