@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="55fb0508-19ba-40be-b679-db30e6f9da2e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/graph/templates/graph/one_vs_one.djhtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game/celery.py" afterPath="$PROJECT_DIR$/game/celery.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game/settings.py" afterPath="$PROJECT_DIR$/game/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graph/game_functions.py" afterPath="$PROJECT_DIR$/graph/game_functions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graph/models.py" afterPath="$PROJECT_DIR$/graph/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graph/pm_pool.py" afterPath="$PROJECT_DIR$/graph/pm_pool.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/graph/views.py" afterPath="$PROJECT_DIR$/graph/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/graph/waiting.js" afterPath="$PROJECT_DIR$/static/graph/waiting.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
     </list>
     <ignored path="tranquil-earth-60828-one-vs-ia.iws" />
     <ignored path=".idea/workspace.xml" />
