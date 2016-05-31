@@ -319,6 +319,11 @@ def load_graph(request):
 
 @login_required
 def get_model_info(request, modelname):
+    response = get_model_info_server(modelname)
+    return JsonResponse(response)
+
+
+def get_model_info_server(modelname):
     player_model = PlayerModel.objects.get(name=modelname)
     model_dict = dict()
     model_dict['name'] = modelname
@@ -335,7 +340,8 @@ def get_model_info(request, modelname):
 
     response = dict()
     response['html'] = html
-    return JsonResponse(response)
+    return response
+
 
 
 def get_bar_values(game, player, turn_iteration):
@@ -457,18 +463,27 @@ def predict_user_flows_all_turns(game, player):
 @login_required
 def get_user_predictions(request, username):
 
+    response = get_user_predictions_server(username)
+    return JsonResponse(response)
+
+
+def get_user_predictions_server(username):
     game = Game.objects.get(currently_in_use=True)
     player = Player.objects.get(user__username=username)
     flow_predictions, actual_flows = predict_user_flows_all_turns(game, player)
     response = dict()
     response['predictions'] = flow_predictions
     response['actual'] = actual_flows
+    return response
+
+@login_required
+def get_user_costs(request, graph_name):
+    response = get_user_costs_server(graph_name)
     return JsonResponse(response)
 
 
-  
-@login_required
-def get_user_costs(request, graph_name):
+
+def get_user_costs_server( graph_name):
     if not Game.objects.filter(graph__name=graph_name).count():
         return JsonResponse({'started': False})
 
@@ -493,13 +508,17 @@ def get_user_costs(request, graph_name):
         paths = Path.objects.filter(player_model=player.player_model)
 
         # path_assignments = player.flow_distribution.path_assignments
-        number_of_PM = len(Player.objects.filter(player_model = player.player_model))
+        number_of_PM_shared = len(Player.objects.filter(player_model = player.player_model,game=game))
+        logger.debug("#################")
+        logger.debug(player)
+        logger.debug(number_of_PM_shared)
+
         cumulative_cost = 0
         #TODO fix normilzation const
-        #
+
         normalization_const = player.player_model.normalization_const
         #normalization_const = 2.5
-        logger.debug("#################")
+
         for turn in game.turns.all().order_by('iteration'):
             #if turn.iteration == 0 and player.is_a_bot:
 
@@ -526,8 +545,8 @@ def get_user_costs(request, graph_name):
                 current_cost += (current_path_cost) * flow
 
             cumulative_cost += current_cost
-            current_costs[player.user.username].append(current_cost/normalization_const*number_of_PM)
-            cumulative_costs[player.user.username].append(cumulative_cost/normalization_const*number_of_PM)
+            current_costs[player.user.username].append(current_cost/normalization_const*number_of_PM_shared)
+            cumulative_costs[player.user.username].append(cumulative_cost/normalization_const*number_of_PM_shared)
 
         etas = estimate_best_eta_all_turns(game, player)
         logger.debug("#################")
@@ -541,7 +560,7 @@ def get_user_costs(request, graph_name):
     response['current_costs'] = current_costs
     response['cumulative_costs'] =  cumulative_costs
     response['user_etas'] = user_etas
-    return JsonResponse(response)
+    return response
 
 
   
@@ -550,16 +569,21 @@ def assign_game(request):
     data = json.loads(request.body)
 
     logger.debug('Data:' + str(data))
+    game_name= data['game']
+    username = data['username']
+    response = assign_game_server(game_name,username)
 
-    game = Game.objects.get(name=data['game'])
-    user = User.objects.get(username=data['username'])
+    return JsonResponse(response)
+
+def assign_game_server(game_name,username):
+    game = Game.objects.get(name=game_name)
+    user = User.objects.get(username=username)
     user.player.game = game
     user.save()
     user.player.save()
-
-    return JsonResponse(dict())
-
-
+    response = dict()
+    response['sucess']=True
+    return response
   
 @login_required
 def assign_model_node(request):
@@ -687,7 +711,7 @@ def get_previous_cost(request, username):
             previous_flows[idx].append(flow)
 
     response = dict()
-    response['number_pm'] = Player.objects.filter(player_model= player.player_model).count()
+    response['number_pm'] = Player.objects.filter(player_model= player.player_model,game=game).count()
     response['path_ids'] = path_ids
     response['paths'] = paths
     response['previous_costs'] = previous_costs
@@ -1018,7 +1042,6 @@ def submit_distribution(request):
 @login_required
 def current_state(request):
     data = json.loads(request.body)
-    #logger.debug(data)
     game = Game.objects.get(name=data['game'])
 
     time_key = game.pk + get_hash(str(game.current_turn.iteration))
@@ -1040,8 +1063,6 @@ def current_state(request):
         secs_left = (es_started + duration) - secs_now
 
 
-    # cache.set('time_left', secs_left)
-
     response = dict()
     response['iteration'] = game.current_turn.iteration
     response['secs'] = secs_left
@@ -1057,7 +1078,7 @@ def current_state(request):
 
     max_flow_cache_key = get_hash(game.pk) + 'edge_max_flow'
     if not cache.get(max_flow_cache_key):
-       # logger.debug('max flow CACHE FAILLEDDD')
+
         edge_max_flow = calculate_maximum_flow(game)
         cache.set(max_flow_cache_key, edge_max_flow)
 
@@ -1067,11 +1088,14 @@ def current_state(request):
 
     return JsonResponse(response)
 
-  
-def start_game(request):
-    #data = json.loads(request.body)
 
-    #game = Game.objects.get(name=data['game'])
+@login_required
+def start_game(request):
+    response = start_game_server()
+    return JsonResponse(response)
+
+
+def start_game_server():
     game = Game.objects.get(currently_in_use = True)
     global current_game_stopped
     global current_game_started
@@ -1079,10 +1103,10 @@ def start_game(request):
     current_game_stopped = False
     current_game_started = True
     a_game_being_played_currently = True
-
+    response = dict()
 
     if(game.started):
-        return JsonResponse(dict())
+        return response
     else:
         logger.debug('Calculating equilibrium flows')
         logger.debug(game.graph.name)
@@ -1094,12 +1118,18 @@ def start_game(request):
         game.stopped = False
 
         game.save()
-
+        response['success']=True
         game_force_next.apply_async((game.name,), countdown=game.duration)
-        return JsonResponse(dict())
+        return response
 
-  
+
+@login_required
 def stop_game(request):
+    response = stop_game_server()
+    return JsonResponse(response)
+
+
+def stop_game_server():
     global current_game_stopped
     global current_game_started
 
@@ -1108,7 +1138,7 @@ def stop_game(request):
     current_game_started = False
 
     a_game_being_played_currently = False
-    data = json.loads(request.body)
+
     game = Game.objects.get(currently_in_use = True)
     dump_data_fixture('graph-' + str(game.graph.name)+'-'+str(datetime.now()) + '.json')
     game.stopped = True
@@ -1116,18 +1146,13 @@ def stop_game(request):
     for user in User.objects.all():
         cache.delete(get_hash(user.username) + 'allocation')
         cache.delete(get_hash(user.username) + 'path_ids')
-    #generate_player_model()
-
-    #if Player.objects.filter(tested= False,superuser=False).count()>0:
-       # prepare_for_next_game()
-        #select_players_for_game()
 
     response = dict()
     response['success'] = True
 
     response['use_end'] = no_more_games_left()
 
-    return JsonResponse(response)
+    return response
 
 
 # TODO: Fix this later!
@@ -1170,7 +1195,7 @@ def reset_game(game):
     game.started = False
     game.save()
 
-  
+
 def start_edge_highlight(request):
     game = Game.object.get(currently_in_use=True)
 
@@ -1201,13 +1226,18 @@ def save_data(request):
     dump_data_fixture('graph-' + str(Game.objects.get(currently_in_use=True).graph.name)+'-'+str(datetime.now()) + '.json')
     return JsonResponse(dict())
 
-  
+@login_required
 def assign_duration(request):
     data = json.loads(request.body)
     duration = data['duration']
-
+    game_name=data['game']
     # TODO: Fix this for multiple games
-    game = Game.objects.get(name=data['game'])
+    response = assign_duration_server(duration,game_name)
+
+    return JsonResponse(response)
+
+def assign_duration_server(duration,game_name):
+    game = Game.objects.get(name=game_name)
 
     game.duration = duration
     game.save()
@@ -1215,10 +1245,12 @@ def assign_duration(request):
     # begin at the *next* turn
     time_key = game.pk + get_hash(str(game.current_turn.iteration + 1))
     cache.set(time_key, game.duration)
+    response = dict()
+    response['game']=game.name
+    response['duration']= duration
+    response['success']= True
+    return response
 
-    return JsonResponse(dict())
-
-  
 def set_game_mode(request):
     data = json.loads(request.body)
     single_slider_mode = data['single_slider']
@@ -1299,14 +1331,16 @@ def get_countdown(request):
 
   
 def set_waiting_time(request):
+    response = set_waiting_time_server()
+    return JsonResponse(response)
+
+
+def set_waiting_time_server():
     cache.set('waiting_time',waiting_time)
     response = dict()
     response['Success'] = True
     response['countdown'] = int (cache.get("waiting_time"))
-    return JsonResponse(response)
-
-
-
+    return response
   
 def get_game_graph(request):
     data = json.loads(request.body)

@@ -44,7 +44,7 @@ def iterate_next_turn(game):
 
     game.current_turn = next_turn
     game.save()
-    for player in Player.objects.filter(is_a_bot = True,superuser=False):
+    for player in Player.objects.filter(is_a_bot = True,superuser=False,game=game):
          user = player.user
          allocation , path_ids = ai_play_server(user)
          logger.debug("Allocation at turn "+ str(game.current_turn.iteration)+" by "+str(user))
@@ -67,8 +67,7 @@ def create_flow_distribution(game, player, allocation, path_ids, turn):
     #logger.debug("test create flow distribution player :"+ str(player))
     # logger.debug("test create flow distribution turn :"+ str(turn))
 
-    num_player_model = Player.objects.filter(player_model = player.player_model).count()
-
+    num_player_per_model = Player.objects.filter(player_model = player.player_model,game =game ).count()
     flow_distribution, created = FlowDistribution.objects.get_or_create(turn=turn, player=player)
     flow_distribution.path_assignments.clear()
 
@@ -85,14 +84,14 @@ def create_flow_distribution(game, player, allocation, path_ids, turn):
         else:
             # if all the weights are non-positive, assign the uniform distribution
             assignment.flow = 1. / nb_paths * player.player_model.flow
-        assignment.flow/=num_player_model
+        assignment.flow/=num_player_per_model
         assignment.save()
         flow_distribution.path_assignments.add(assignment)
 
     flow_distribution.save()
     player.flow_distribution = flow_distribution
     player.save()
-
+    logger.debug(flow_distribution)
     return flow_distribution
 
 

@@ -41,7 +41,7 @@ def select_players_for_game():
         admin.save()
 
     ai_player.game = game
-    ai_player.player_model = random.choice(pm_to_use)
+    ai_player.player_model = PlayerModel.objects.get(name='PM_AI')
     pm_ai = ai_player.player_model
     pm_ai.in_use= True
     pm_ai.historic_player=str(pm_ai.historic_player)+str(ai_player)
@@ -54,7 +54,7 @@ def select_players_for_game():
 
     non_ai_player.game = game
     non_ai_player.tested = True
-    non_ai_player.player_model = random.choice(pm_to_use)
+    non_ai_player.player_model = PlayerModel.objects.get(name='PM_NON_AI')
     pm_non_ai = non_ai_player.player_model
     pm_non_ai.in_use= True
     pm_non_ai.historic_player=str(pm_non_ai.historic_player)+str(non_ai_player)
