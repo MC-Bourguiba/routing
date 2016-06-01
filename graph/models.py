@@ -46,6 +46,7 @@ class Player(models.Model):
     user = models.OneToOneField(User, null=True, blank=True)
     player_model = models.ForeignKey(PlayerModel, blank=True, null=True)
     rank = models.IntegerField(default=0)
+    arrival_rank = models.IntegerField(default=0)
     # completed_task = models.BooleanField(default=False)
     game = models.ForeignKey('Game', null=True, blank=True)
     tested = models.BooleanField(default=False)

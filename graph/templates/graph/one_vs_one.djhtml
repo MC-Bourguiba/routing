@@ -6,10 +6,18 @@
 <p style=" margin-top: 50;">We are in the queue</p>
 <p> Please wait until the game finishes</p>
 <p> Thank you for your patience</p>
-
-
-
+<p> first to play {{ first_to_play }} </p>
+{% if first %}
+<p style=" margin-top: 50;"> you are currently {{ rank }}st in the waiting list </p>
+{% elif second %}
+<p style=" margin-top: 50;"> you are currently {{ rank }}nd in the waiting list </p>
+{% elif third %}
+<p style=" margin-top: 50;"> you are currently {{ rank }}rd in the waiting list </p>
+{% else %}
 <p style=" margin-top: 50;"> you are currently {{ rank }}th in the waiting list </p>
+{% endif %}
+
+
 
 
 

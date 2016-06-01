@@ -59,7 +59,6 @@ waiting_time = 30
 cache.set('waiting_time',waiting_time)
 use_end_template = False
 a_game_being_played_currently = False
-notified_once = False
 AMAZON_HOST = "https://workersandbox.mturk.com/mturk/externalSubmit"
 
 
@@ -1248,25 +1247,58 @@ def set_game_mode(request):
 
     return JsonResponse(dict())
 
-  
+def update_rank():
+    counter = 0
+    for player in Player.objects.filter(tested = False,is_a_bot=False,superuser=False).order_by('arrival_rank'):
+        player.rank = counter+1
+        counter = counter+1
+        player.save()
+    counter = 0
+    for player in  Player.objects.filter(tested = False,is_a_bot=True,superuser=False).order_by('arrival_rank'):
+        player.rank = len(Player.objects.filter(tested = False,is_a_bot=False,superuser=False)) +counter+1
+        counter = counter +1
+        player.save()
+
 @login_required
 def waiting_room(request):
     user = User.objects.get(username=request.user.username)
     player = Player.objects.get(user=user)
+    player.is_a_bot = False
+    player.save()
+    update_rank()
     response = dict()
+
+
+    #try:
+      #  first_connected_player = Player.objects.filter(tested =False,superuser=False,is_a_bot = False).order_by('rank')[0]
+       # first_to_play = (player==first_connected_player)
+       # rank = player.rank-Player.objects.filter(tested =False,superuser=False,is_a_bot = True).order_by('rank').count()+1
+       # response['rank'] = rank
+   # except:
+      #  first_to_play = False
+      #  rank = 1
+       # response['rank'] =rank
+
+
+    #response['first_to_play']= first_to_play
     response['Success']=True
     template = 'graph/user_wait.djhtml'
     if not cache.get("waiting_time"):
         cache.set("waiting_time", waiting_time)
     if user.player.game == None:
         response['username'] = user.username
+
+        response['first'] = player.rank%10==1
+        response['second']= player.rank%10==2
+        response['third'] = player.rank%10==3
         response['rank'] = player.rank
-        response['reminder_rank'] = player.rank %10
-        response['html'] = render_to_string('graph/one_vs_one.djhtml', response)
-        if  player.rank ==1 and Game.objects.get(currently_in_use=True).stopped:
+        response['html']  = render_to_string('graph/one_vs_one.djhtml', response)
+        if  (player.rank ==1 and (Game.objects.get(currently_in_use=True).stopped or Game.objects.all().count()==1)):
+
             set_waiting_time_server()
             prepare_for_next_game()
             select_players_for_game()
+            response['rank'] = player.rank
             waiting_countdown_server()
             response['game_created'] = True
         return render(request,template,response)
@@ -1368,7 +1400,7 @@ def heartbeat(request):
         cache.set(str(username)+'notified',True)
 
     response['ts'] = cache.get(username + '_ts')
-    response['notifed_once'] = notified_once
+    response['notifed_once'] = cache.get(str(username)+'notified')
     response['queue_rank'] = str(username)+' '+str(player.rank)
     response['current_game_stopped'] = game.stopped
     return JsonResponse(response)

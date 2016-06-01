@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
 def create_new_player(user,superuser):
     success = False
     player = Player(user=user)
-    player.rank = Player.objects.filter(tested=False,superuser=False).count()+1
+    player.rank = Player.objects.filter(tested=False,superuser=False,is_a_bot=False).count()+1
+    player.arrival_rank = Player.objects.filter(tested=False,superuser=False).count()+1
     player.save()
     # player.user = user
     #player.game = game

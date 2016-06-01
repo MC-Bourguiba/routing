@@ -1,0 +1,1686 @@
+[
+{
+    "fields": {
+        "model": "permission",
+        "name": "permission",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 1
+},
+{
+    "fields": {
+        "model": "group",
+        "name": "group",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 2
+},
+{
+    "fields": {
+        "model": "user",
+        "name": "user",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 3
+},
+{
+    "fields": {
+        "model": "contenttype",
+        "name": "content type",
+        "app_label": "contenttypes"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 4
+},
+{
+    "fields": {
+        "model": "session",
+        "name": "session",
+        "app_label": "sessions"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 5
+},
+{
+    "fields": {
+        "model": "taskmeta",
+        "name": "task state",
+        "app_label": "djcelery"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 6
+},
+{
+    "fields": {
+        "model": "tasksetmeta",
+        "name": "saved group result",
+        "app_label": "djcelery"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 7
+},
+{
+    "fields": {
+        "model": "intervalschedule",
+        "name": "interval",
+        "app_label": "djcelery"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 8
+},
+{
+    "fields": {
+        "model": "crontabschedule",
+        "name": "crontab",
+        "app_label": "djcelery"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 9
+},
+{
+    "fields": {
+        "model": "periodictasks",
+        "name": "periodic tasks",
+        "app_label": "djcelery"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 10
+},
+{
+    "fields": {
+        "model": "periodictask",
+        "name": "periodic task",
+        "app_label": "djcelery"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 11
+},
+{
+    "fields": {
+        "model": "workerstate",
+        "name": "worker",
+        "app_label": "djcelery"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 12
+},
+{
+    "fields": {
+        "model": "taskstate",
+        "name": "task",
+        "app_label": "djcelery"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 13
+},
+{
+    "fields": {
+        "model": "user",
+        "name": "user",
+        "app_label": "id_counter"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 14
+},
+{
+    "fields": {
+        "model": "graph",
+        "name": "graph",
+        "app_label": "graph"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 15
+},
+{
+    "fields": {
+        "model": "node",
+        "name": "node",
+        "app_label": "graph"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 16
+},
+{
+    "fields": {
+        "model": "playermodel",
+        "name": "player model",
+        "app_label": "graph"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 17
+},
+{
+    "fields": {
+        "model": "player",
+        "name": "player",
+        "app_label": "graph"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 18
+},
+{
+    "fields": {
+        "model": "edge",
+        "name": "edge",
+        "app_label": "graph"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 19
+},
+{
+    "fields": {
+        "model": "path",
+        "name": "path",
+        "app_label": "graph"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 20
+},
+{
+    "fields": {
+        "model": "pathflowassignment",
+        "name": "path flow assignment",
+        "app_label": "graph"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 21
+},
+{
+    "fields": {
+        "model": "gameturn",
+        "name": "game turn",
+        "app_label": "graph"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 22
+},
+{
+    "fields": {
+        "model": "flowdistribution",
+        "name": "flow distribution",
+        "app_label": "graph"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 23
+},
+{
+    "fields": {
+        "model": "learningrate",
+        "name": "learning rate",
+        "app_label": "graph"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 24
+},
+{
+    "fields": {
+        "model": "edgecost",
+        "name": "edge cost",
+        "app_label": "graph"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 25
+},
+{
+    "fields": {
+        "model": "graphcost",
+        "name": "graph cost",
+        "app_label": "graph"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 26
+},
+{
+    "fields": {
+        "model": "game",
+        "name": "game",
+        "app_label": "graph"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 27
+},
+{
+    "fields": {
+        "model": "request",
+        "name": "request",
+        "app_label": "silk"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 28
+},
+{
+    "fields": {
+        "model": "response",
+        "name": "response",
+        "app_label": "silk"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 29
+},
+{
+    "fields": {
+        "model": "sqlquery",
+        "name": "sql query",
+        "app_label": "silk"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 30
+},
+{
+    "fields": {
+        "model": "profile",
+        "name": "profile",
+        "app_label": "silk"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 31
+},
+{
+    "fields": {
+        "expire_date": "2016-06-15T22:28:31.440Z",
+        "session_data": "ZTNmM2E5MmVmOTY3YjU3MWMxNWE2N2M0MmVlNTYyN2IzZGQwYzYxOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjAxZTAwNWFlMmVkZTZhMjc5YWQyZTVlNzU3OTNjZGE4NjU3NTA4OTkiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
+    },
+    "model": "sessions.session",
+    "pk": "0gd0umitsvb4d29rxrf534cw796tags9"
+},
+{
+    "fields": {
+        "expire_date": "2016-06-15T22:28:20.505Z",
+        "session_data": "ZjRlMWI5OTgxZDA3OTlmNzczNjgxOTg0YjMyMmFhM2NiNmJiNzE5MDp7fQ=="
+    },
+    "model": "sessions.session",
+    "pk": "bjowlwoggc340mlqpe6n2dahzi8xw9sd"
+},
+{
+    "fields": {
+        "graph_ui": "{\"graph\": \"G1\", \"nodes\": [{\"index\": 0, \"reflexive\": false, \"weight\": 3, \"px\": 79, \"py\": 315, \"y\": 315, \"x\": 79, \"id\": 1}, {\"index\": 1, \"reflexive\": false, \"weight\": 3, \"px\": 91, \"py\": 135, \"y\": 135, \"x\": 91, \"id\": 2}, {\"index\": 2, \"reflexive\": false, \"weight\": 3, \"px\": 283, \"py\": 292, \"y\": 292, \"x\": 283, \"id\": 3}, {\"index\": 3, \"reflexive\": false, \"weight\": 7, \"px\": 159, \"py\": 193, \"y\": 193, \"x\": 159, \"id\": 4}, {\"index\": 4, \"reflexive\": false, \"weight\": 3, \"px\": 178, \"py\": 114, \"y\": 114, \"x\": 178, \"id\": 5}, {\"index\": 5, \"reflexive\": false, \"weight\": 3, \"px\": 256, \"py\": 155, \"y\": 155, \"x\": 256, \"id\": 6}, {\"index\": 6, \"reflexive\": false, \"weight\": 3, \"px\": 258, \"py\": 97, \"y\": 97, \"x\": 258, \"id\": 7}, {\"index\": 7, \"reflexive\": false, \"weight\": 3, \"px\": 354, \"py\": 212, \"y\": 212, \"x\": 354, \"id\": 8}], \"game\": \"game_1\", \"links\": [{\"id\": \"e8889ac44ccab1d4faf689db55694e0d\", \"source\": {\"index\": 0, \"reflexive\": false, \"weight\": 3, \"px\": 79, \"py\": 315, \"y\": 315, \"x\": 79, \"id\": 1}, \"right\": true, \"target\": {\"index\": 3, \"reflexive\": false, \"weight\": 7, \"px\": 159, \"py\": 193, \"y\": 193, \"x\": 159, \"id\": 4}, \"left\": false}, {\"id\": \"dec9f902a50143b90e40a6bf57eb00b6\", \"source\": {\"index\": 3, \"reflexive\": false, \"weight\": 7, \"px\": 159, \"py\": 193, \"y\": 193, \"x\": 159, \"id\": 4}, \"right\": true, \"target\": {\"index\": 6, \"reflexive\": false, \"weight\": 3, \"px\": 258, \"py\": 97, \"y\": 97, \"x\": 258, \"id\": 7}, \"left\": false}, {\"id\": \"d2118e8ce18b8eae1addc3482c8e5f79\", \"source\": {\"index\": 0, \"reflexive\": false, \"weight\": 3, \"px\": 79, \"py\": 315, \"y\": 315, \"x\": 79, \"id\": 1}, \"right\": true, \"target\": {\"index\": 1, \"reflexive\": false, \"weight\": 3, \"px\": 91, \"py\": 135, \"y\": 135, \"x\": 91, \"id\": 2}, \"left\": false}, {\"id\": \"c003855a421f33c228c8b195a3bd8ea6\", \"source\": {\"index\": 1, \"reflexive\": false, \"weight\": 3, \"px\": 91, \"py\": 135, \"y\": 135, \"x\": 91, \"id\": 2}, \"right\": true, \"target\": {\"index\": 4, \"reflexive\": false, \"weight\": 3, \"px\": 178, \"py\": 114, \"y\": 114, \"x\": 178, \"id\": 5}, \"left\": false}, {\"id\": \"16fa419453738ca1c24d2798b910fa24\", \"source\": {\"index\": 3, \"reflexive\": false, \"weight\": 7, \"px\": 159, \"py\": 193, \"y\": 193, \"x\": 159, \"id\": 4}, \"right\": true, \"target\": {\"index\": 4, \"reflexive\": false, \"weight\": 3, \"px\": 178, \"py\": 114, \"y\": 114, \"x\": 178, \"id\": 5}, \"left\": false}, {\"id\": \"25edc8fcd496d68205432a74b3f2c0d6\", \"source\": {\"index\": 4, \"reflexive\": false, \"weight\": 3, \"px\": 178, \"py\": 114, \"y\": 114, \"x\": 178, \"id\": 5}, \"right\": true, \"target\": {\"index\": 6, \"reflexive\": false, \"weight\": 3, \"px\": 258, \"py\": 97, \"y\": 97, \"x\": 258, \"id\": 7}, \"left\": false}, {\"id\": \"7677538440cbb34bf06cfc3d63fcc940\", \"source\": {\"index\": 1, \"reflexive\": false, \"weight\": 3, \"px\": 91, \"py\": 135, \"y\": 135, \"x\": 91, \"id\": 2}, \"right\": true, \"target\": {\"index\": 3, \"reflexive\": false, \"weight\": 7, \"px\": 159, \"py\": 193, \"y\": 193, \"x\": 159, \"id\": 4}, \"left\": false}, {\"id\": \"c226acec11a245e9b524789b9856ec72\", \"source\": {\"index\": 3, \"reflexive\": false, \"weight\": 7, \"px\": 159, \"py\": 193, \"y\": 193, \"x\": 159, \"id\": 4}, \"right\": true, \"target\": {\"index\": 5, \"reflexive\": false, \"weight\": 3, \"px\": 256, \"py\": 155, \"y\": 155, \"x\": 256, \"id\": 6}, \"left\": false}, {\"id\": \"f830bed0e210086657e39fd99b20d932\", \"source\": {\"index\": 5, \"reflexive\": false, \"weight\": 3, \"px\": 256, \"py\": 155, \"y\": 155, \"x\": 256, \"id\": 6}, \"right\": true, \"target\": {\"index\": 6, \"reflexive\": false, \"weight\": 3, \"px\": 258, \"py\": 97, \"y\": 97, \"x\": 258, \"id\": 7}, \"left\": false}, {\"id\": \"9a5a8fbfb70c6d602200a8d061436be2\", \"source\": {\"index\": 5, \"reflexive\": false, \"weight\": 3, \"px\": 256, \"py\": 155, \"y\": 155, \"x\": 256, \"id\": 6}, \"right\": true, \"target\": {\"index\": 7, \"reflexive\": false, \"weight\": 3, \"px\": 354, \"py\": 212, \"y\": 212, \"x\": 354, \"id\": 8}, \"left\": false}, {\"id\": \"9b4a74e65b324f3ef7f8aa344617a82e\", \"source\": {\"index\": 3, \"reflexive\": false, \"weight\": 7, \"px\": 159, \"py\": 193, \"y\": 193, \"x\": 159, \"id\": 4}, \"right\": true, \"target\": {\"index\": 7, \"reflexive\": false, \"weight\": 3, \"px\": 354, \"py\": 212, \"y\": 212, \"x\": 354, \"id\": 8}, \"left\": false}, {\"id\": \"c4ad2e258dbc9410f76f5339d826073b\", \"source\": {\"index\": 0, \"reflexive\": false, \"weight\": 3, \"px\": 79, \"py\": 315, \"y\": 315, \"x\": 79, \"id\": 1}, \"right\": true, \"target\": {\"index\": 2, \"reflexive\": false, \"weight\": 3, \"px\": 283, \"py\": 292, \"y\": 292, \"x\": 283, \"id\": 3}, \"left\": false}, {\"id\": \"6a9a20bd5bbbfb4fc7b216ab6087437b\", \"source\": {\"index\": 2, \"reflexive\": false, \"weight\": 3, \"px\": 283, \"py\": 292, \"y\": 292, \"x\": 283, \"id\": 3}, \"right\": true, \"target\": {\"index\": 7, \"reflexive\": false, \"weight\": 3, \"px\": 354, \"py\": 212, \"y\": 212, \"x\": 354, \"id\": 8}, \"left\": false}, {\"id\": \"bcbf9999484f0bc6daba7386d2a99601\", \"source\": {\"index\": 2, \"reflexive\": false, \"weight\": 3, \"px\": 283, \"py\": 292, \"y\": 292, \"x\": 283, \"id\": 3}, \"right\": true, \"target\": {\"index\": 3, \"reflexive\": false, \"weight\": 7, \"px\": 159, \"py\": 193, \"y\": 193, \"x\": 159, \"id\": 4}, \"left\": false}]}"
+    },
+    "model": "graph.graph",
+    "pk": "G1"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "ui_id": 7
+    },
+    "model": "graph.node",
+    "pk": "029cb885-8ecd-47e6-936a-d0cd0c2e7789"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "ui_id": 6
+    },
+    "model": "graph.node",
+    "pk": "1a2b6d24-d5c3-40ca-b710-897af097ecfd"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "ui_id": 1
+    },
+    "model": "graph.node",
+    "pk": "25579387-6be6-4cbc-aecc-cf29e6755125"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "ui_id": 2
+    },
+    "model": "graph.node",
+    "pk": "5612ea45-ddc7-4f33-84c3-7e60c6b8d2ab"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "ui_id": 3
+    },
+    "model": "graph.node",
+    "pk": "96db5e2f-5b4b-432e-a7c3-ffb234f58482"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "ui_id": 4
+    },
+    "model": "graph.node",
+    "pk": "a13aa975-04e2-4137-ba77-2cce30ee5887"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "ui_id": 8
+    },
+    "model": "graph.node",
+    "pk": "acf5914e-1655-494a-95b5-833e4fb9cea0"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "ui_id": 5
+    },
+    "model": "graph.node",
+    "pk": "b09a9e23-dd38-4a67-be2f-a3f93efa8466"
+},
+{
+    "fields": {
+        "destination_node": "029cb885-8ecd-47e6-936a-d0cd0c2e7789",
+        "graph": "G1",
+        "in_use": false,
+        "flow": 1.0,
+        "normalization_const": null,
+        "start_node": "25579387-6be6-4cbc-aecc-cf29e6755125",
+        "historic_player": ""
+    },
+    "model": "graph.playermodel",
+    "pk": "PM_AI"
+},
+{
+    "fields": {
+        "destination_node": "acf5914e-1655-494a-95b5-833e4fb9cea0",
+        "graph": "G1",
+        "in_use": false,
+        "flow": 1.0,
+        "normalization_const": null,
+        "start_node": "25579387-6be6-4cbc-aecc-cf29e6755125",
+        "historic_player": ""
+    },
+    "model": "graph.playermodel",
+    "pk": "PM_NON_AI"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "b09a9e23-dd38-4a67-be2f-a3f93efa8466",
+        "from_node": "a13aa975-04e2-4137-ba77-2cce30ee5887"
+    },
+    "model": "graph.edge",
+    "pk": "16fa419453738ca1c24d2798b910fa24"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "029cb885-8ecd-47e6-936a-d0cd0c2e7789",
+        "from_node": "b09a9e23-dd38-4a67-be2f-a3f93efa8466"
+    },
+    "model": "graph.edge",
+    "pk": "25edc8fcd496d68205432a74b3f2c0d6"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "acf5914e-1655-494a-95b5-833e4fb9cea0",
+        "from_node": "96db5e2f-5b4b-432e-a7c3-ffb234f58482"
+    },
+    "model": "graph.edge",
+    "pk": "6a9a20bd5bbbfb4fc7b216ab6087437b"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "a13aa975-04e2-4137-ba77-2cce30ee5887",
+        "from_node": "5612ea45-ddc7-4f33-84c3-7e60c6b8d2ab"
+    },
+    "model": "graph.edge",
+    "pk": "7677538440cbb34bf06cfc3d63fcc940"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "acf5914e-1655-494a-95b5-833e4fb9cea0",
+        "from_node": "1a2b6d24-d5c3-40ca-b710-897af097ecfd"
+    },
+    "model": "graph.edge",
+    "pk": "9a5a8fbfb70c6d602200a8d061436be2"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "acf5914e-1655-494a-95b5-833e4fb9cea0",
+        "from_node": "a13aa975-04e2-4137-ba77-2cce30ee5887"
+    },
+    "model": "graph.edge",
+    "pk": "9b4a74e65b324f3ef7f8aa344617a82e"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "a13aa975-04e2-4137-ba77-2cce30ee5887",
+        "from_node": "96db5e2f-5b4b-432e-a7c3-ffb234f58482"
+    },
+    "model": "graph.edge",
+    "pk": "bcbf9999484f0bc6daba7386d2a99601"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "b09a9e23-dd38-4a67-be2f-a3f93efa8466",
+        "from_node": "5612ea45-ddc7-4f33-84c3-7e60c6b8d2ab"
+    },
+    "model": "graph.edge",
+    "pk": "c003855a421f33c228c8b195a3bd8ea6"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "1a2b6d24-d5c3-40ca-b710-897af097ecfd",
+        "from_node": "a13aa975-04e2-4137-ba77-2cce30ee5887"
+    },
+    "model": "graph.edge",
+    "pk": "c226acec11a245e9b524789b9856ec72"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "96db5e2f-5b4b-432e-a7c3-ffb234f58482",
+        "from_node": "25579387-6be6-4cbc-aecc-cf29e6755125"
+    },
+    "model": "graph.edge",
+    "pk": "c4ad2e258dbc9410f76f5339d826073b"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "5612ea45-ddc7-4f33-84c3-7e60c6b8d2ab",
+        "from_node": "25579387-6be6-4cbc-aecc-cf29e6755125"
+    },
+    "model": "graph.edge",
+    "pk": "d2118e8ce18b8eae1addc3482c8e5f79"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "029cb885-8ecd-47e6-936a-d0cd0c2e7789",
+        "from_node": "a13aa975-04e2-4137-ba77-2cce30ee5887"
+    },
+    "model": "graph.edge",
+    "pk": "dec9f902a50143b90e40a6bf57eb00b6"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "a13aa975-04e2-4137-ba77-2cce30ee5887",
+        "from_node": "25579387-6be6-4cbc-aecc-cf29e6755125"
+    },
+    "model": "graph.edge",
+    "pk": "e8889ac44ccab1d4faf689db55694e0d"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "cost_function": "x",
+        "to_node": "029cb885-8ecd-47e6-936a-d0cd0c2e7789",
+        "from_node": "1a2b6d24-d5c3-40ca-b710-897af097ecfd"
+    },
+    "model": "graph.edge",
+    "pk": "f830bed0e210086657e39fd99b20d932"
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "16fa419453738ca1c24d2798b910fa24",
+            "25edc8fcd496d68205432a74b3f2c0d6",
+            "7677538440cbb34bf06cfc3d63fcc940",
+            "d2118e8ce18b8eae1addc3482c8e5f79"
+        ],
+        "player_model": "PM_AI"
+    },
+    "model": "graph.path",
+    "pk": 1
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "7677538440cbb34bf06cfc3d63fcc940",
+            "c226acec11a245e9b524789b9856ec72",
+            "d2118e8ce18b8eae1addc3482c8e5f79",
+            "f830bed0e210086657e39fd99b20d932"
+        ],
+        "player_model": "PM_AI"
+    },
+    "model": "graph.path",
+    "pk": 2
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "7677538440cbb34bf06cfc3d63fcc940",
+            "d2118e8ce18b8eae1addc3482c8e5f79",
+            "dec9f902a50143b90e40a6bf57eb00b6"
+        ],
+        "player_model": "PM_AI"
+    },
+    "model": "graph.path",
+    "pk": 3
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "25edc8fcd496d68205432a74b3f2c0d6",
+            "c003855a421f33c228c8b195a3bd8ea6",
+            "d2118e8ce18b8eae1addc3482c8e5f79"
+        ],
+        "player_model": "PM_AI"
+    },
+    "model": "graph.path",
+    "pk": 4
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "16fa419453738ca1c24d2798b910fa24",
+            "25edc8fcd496d68205432a74b3f2c0d6",
+            "bcbf9999484f0bc6daba7386d2a99601",
+            "c4ad2e258dbc9410f76f5339d826073b"
+        ],
+        "player_model": "PM_AI"
+    },
+    "model": "graph.path",
+    "pk": 5
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "bcbf9999484f0bc6daba7386d2a99601",
+            "c226acec11a245e9b524789b9856ec72",
+            "c4ad2e258dbc9410f76f5339d826073b",
+            "f830bed0e210086657e39fd99b20d932"
+        ],
+        "player_model": "PM_AI"
+    },
+    "model": "graph.path",
+    "pk": 6
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "bcbf9999484f0bc6daba7386d2a99601",
+            "c4ad2e258dbc9410f76f5339d826073b",
+            "dec9f902a50143b90e40a6bf57eb00b6"
+        ],
+        "player_model": "PM_AI"
+    },
+    "model": "graph.path",
+    "pk": 7
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "16fa419453738ca1c24d2798b910fa24",
+            "25edc8fcd496d68205432a74b3f2c0d6",
+            "e8889ac44ccab1d4faf689db55694e0d"
+        ],
+        "player_model": "PM_AI"
+    },
+    "model": "graph.path",
+    "pk": 8
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "c226acec11a245e9b524789b9856ec72",
+            "e8889ac44ccab1d4faf689db55694e0d",
+            "f830bed0e210086657e39fd99b20d932"
+        ],
+        "player_model": "PM_AI"
+    },
+    "model": "graph.path",
+    "pk": 9
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "dec9f902a50143b90e40a6bf57eb00b6",
+            "e8889ac44ccab1d4faf689db55694e0d"
+        ],
+        "player_model": "PM_AI"
+    },
+    "model": "graph.path",
+    "pk": 10
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "7677538440cbb34bf06cfc3d63fcc940",
+            "9b4a74e65b324f3ef7f8aa344617a82e",
+            "d2118e8ce18b8eae1addc3482c8e5f79"
+        ],
+        "player_model": "PM_NON_AI"
+    },
+    "model": "graph.path",
+    "pk": 11
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "7677538440cbb34bf06cfc3d63fcc940",
+            "9a5a8fbfb70c6d602200a8d061436be2",
+            "c226acec11a245e9b524789b9856ec72",
+            "d2118e8ce18b8eae1addc3482c8e5f79"
+        ],
+        "player_model": "PM_NON_AI"
+    },
+    "model": "graph.path",
+    "pk": 12
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "6a9a20bd5bbbfb4fc7b216ab6087437b",
+            "c4ad2e258dbc9410f76f5339d826073b"
+        ],
+        "player_model": "PM_NON_AI"
+    },
+    "model": "graph.path",
+    "pk": 13
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "9b4a74e65b324f3ef7f8aa344617a82e",
+            "bcbf9999484f0bc6daba7386d2a99601",
+            "c4ad2e258dbc9410f76f5339d826073b"
+        ],
+        "player_model": "PM_NON_AI"
+    },
+    "model": "graph.path",
+    "pk": 14
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "9a5a8fbfb70c6d602200a8d061436be2",
+            "bcbf9999484f0bc6daba7386d2a99601",
+            "c226acec11a245e9b524789b9856ec72",
+            "c4ad2e258dbc9410f76f5339d826073b"
+        ],
+        "player_model": "PM_NON_AI"
+    },
+    "model": "graph.path",
+    "pk": 15
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "9b4a74e65b324f3ef7f8aa344617a82e",
+            "e8889ac44ccab1d4faf689db55694e0d"
+        ],
+        "player_model": "PM_NON_AI"
+    },
+    "model": "graph.path",
+    "pk": 16
+},
+{
+    "fields": {
+        "graph": "G1",
+        "edges": [
+            "9a5a8fbfb70c6d602200a8d061436be2",
+            "c226acec11a245e9b524789b9856ec72",
+            "e8889ac44ccab1d4faf689db55694e0d"
+        ],
+        "player_model": "PM_NON_AI"
+    },
+    "model": "graph.path",
+    "pk": 17
+},
+{
+    "fields": {
+        "iteration": 0,
+        "graph_cost": null,
+        "game_object": null
+    },
+    "model": "graph.gameturn",
+    "pk": 1
+},
+{
+    "fields": {
+        "current_turn": 1,
+        "single_slider_mode": false,
+        "started": false,
+        "graph": "G1",
+        "game_loop_time": null,
+        "currently_in_use": true,
+        "edge_highlight": true,
+        "stopped": false,
+        "turns": [],
+        "duration": 30
+    },
+    "model": "graph.game",
+    "pk": "game_1"
+},
+{
+    "fields": {
+        "codename": "add_permission",
+        "name": "Can add permission",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 1
+},
+{
+    "fields": {
+        "codename": "change_permission",
+        "name": "Can change permission",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 2
+},
+{
+    "fields": {
+        "codename": "delete_permission",
+        "name": "Can delete permission",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 3
+},
+{
+    "fields": {
+        "codename": "add_group",
+        "name": "Can add group",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 4
+},
+{
+    "fields": {
+        "codename": "change_group",
+        "name": "Can change group",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 5
+},
+{
+    "fields": {
+        "codename": "delete_group",
+        "name": "Can delete group",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 6
+},
+{
+    "fields": {
+        "codename": "add_user",
+        "name": "Can add user",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 7
+},
+{
+    "fields": {
+        "codename": "change_user",
+        "name": "Can change user",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 8
+},
+{
+    "fields": {
+        "codename": "delete_user",
+        "name": "Can delete user",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 9
+},
+{
+    "fields": {
+        "codename": "add_contenttype",
+        "name": "Can add content type",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 10
+},
+{
+    "fields": {
+        "codename": "change_contenttype",
+        "name": "Can change content type",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 11
+},
+{
+    "fields": {
+        "codename": "delete_contenttype",
+        "name": "Can delete content type",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 12
+},
+{
+    "fields": {
+        "codename": "add_session",
+        "name": "Can add session",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 13
+},
+{
+    "fields": {
+        "codename": "change_session",
+        "name": "Can change session",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 14
+},
+{
+    "fields": {
+        "codename": "delete_session",
+        "name": "Can delete session",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 15
+},
+{
+    "fields": {
+        "codename": "add_taskmeta",
+        "name": "Can add task state",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 16
+},
+{
+    "fields": {
+        "codename": "change_taskmeta",
+        "name": "Can change task state",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 17
+},
+{
+    "fields": {
+        "codename": "delete_taskmeta",
+        "name": "Can delete task state",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 18
+},
+{
+    "fields": {
+        "codename": "add_tasksetmeta",
+        "name": "Can add saved group result",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 19
+},
+{
+    "fields": {
+        "codename": "change_tasksetmeta",
+        "name": "Can change saved group result",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 20
+},
+{
+    "fields": {
+        "codename": "delete_tasksetmeta",
+        "name": "Can delete saved group result",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 21
+},
+{
+    "fields": {
+        "codename": "add_intervalschedule",
+        "name": "Can add interval",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 22
+},
+{
+    "fields": {
+        "codename": "change_intervalschedule",
+        "name": "Can change interval",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 23
+},
+{
+    "fields": {
+        "codename": "delete_intervalschedule",
+        "name": "Can delete interval",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 24
+},
+{
+    "fields": {
+        "codename": "add_crontabschedule",
+        "name": "Can add crontab",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 25
+},
+{
+    "fields": {
+        "codename": "change_crontabschedule",
+        "name": "Can change crontab",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 26
+},
+{
+    "fields": {
+        "codename": "delete_crontabschedule",
+        "name": "Can delete crontab",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 27
+},
+{
+    "fields": {
+        "codename": "add_periodictasks",
+        "name": "Can add periodic tasks",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 28
+},
+{
+    "fields": {
+        "codename": "change_periodictasks",
+        "name": "Can change periodic tasks",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 29
+},
+{
+    "fields": {
+        "codename": "delete_periodictasks",
+        "name": "Can delete periodic tasks",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 30
+},
+{
+    "fields": {
+        "codename": "add_periodictask",
+        "name": "Can add periodic task",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 31
+},
+{
+    "fields": {
+        "codename": "change_periodictask",
+        "name": "Can change periodic task",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 32
+},
+{
+    "fields": {
+        "codename": "delete_periodictask",
+        "name": "Can delete periodic task",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 33
+},
+{
+    "fields": {
+        "codename": "add_workerstate",
+        "name": "Can add worker",
+        "content_type": 12
+    },
+    "model": "auth.permission",
+    "pk": 34
+},
+{
+    "fields": {
+        "codename": "change_workerstate",
+        "name": "Can change worker",
+        "content_type": 12
+    },
+    "model": "auth.permission",
+    "pk": 35
+},
+{
+    "fields": {
+        "codename": "delete_workerstate",
+        "name": "Can delete worker",
+        "content_type": 12
+    },
+    "model": "auth.permission",
+    "pk": 36
+},
+{
+    "fields": {
+        "codename": "add_taskstate",
+        "name": "Can add task",
+        "content_type": 13
+    },
+    "model": "auth.permission",
+    "pk": 37
+},
+{
+    "fields": {
+        "codename": "change_taskstate",
+        "name": "Can change task",
+        "content_type": 13
+    },
+    "model": "auth.permission",
+    "pk": 38
+},
+{
+    "fields": {
+        "codename": "delete_taskstate",
+        "name": "Can delete task",
+        "content_type": 13
+    },
+    "model": "auth.permission",
+    "pk": 39
+},
+{
+    "fields": {
+        "codename": "add_user",
+        "name": "Can add user",
+        "content_type": 14
+    },
+    "model": "auth.permission",
+    "pk": 40
+},
+{
+    "fields": {
+        "codename": "change_user",
+        "name": "Can change user",
+        "content_type": 14
+    },
+    "model": "auth.permission",
+    "pk": 41
+},
+{
+    "fields": {
+        "codename": "delete_user",
+        "name": "Can delete user",
+        "content_type": 14
+    },
+    "model": "auth.permission",
+    "pk": 42
+},
+{
+    "fields": {
+        "codename": "add_graph",
+        "name": "Can add graph",
+        "content_type": 15
+    },
+    "model": "auth.permission",
+    "pk": 43
+},
+{
+    "fields": {
+        "codename": "change_graph",
+        "name": "Can change graph",
+        "content_type": 15
+    },
+    "model": "auth.permission",
+    "pk": 44
+},
+{
+    "fields": {
+        "codename": "delete_graph",
+        "name": "Can delete graph",
+        "content_type": 15
+    },
+    "model": "auth.permission",
+    "pk": 45
+},
+{
+    "fields": {
+        "codename": "add_node",
+        "name": "Can add node",
+        "content_type": 16
+    },
+    "model": "auth.permission",
+    "pk": 46
+},
+{
+    "fields": {
+        "codename": "change_node",
+        "name": "Can change node",
+        "content_type": 16
+    },
+    "model": "auth.permission",
+    "pk": 47
+},
+{
+    "fields": {
+        "codename": "delete_node",
+        "name": "Can delete node",
+        "content_type": 16
+    },
+    "model": "auth.permission",
+    "pk": 48
+},
+{
+    "fields": {
+        "codename": "add_playermodel",
+        "name": "Can add player model",
+        "content_type": 17
+    },
+    "model": "auth.permission",
+    "pk": 49
+},
+{
+    "fields": {
+        "codename": "change_playermodel",
+        "name": "Can change player model",
+        "content_type": 17
+    },
+    "model": "auth.permission",
+    "pk": 50
+},
+{
+    "fields": {
+        "codename": "delete_playermodel",
+        "name": "Can delete player model",
+        "content_type": 17
+    },
+    "model": "auth.permission",
+    "pk": 51
+},
+{
+    "fields": {
+        "codename": "add_player",
+        "name": "Can add player",
+        "content_type": 18
+    },
+    "model": "auth.permission",
+    "pk": 52
+},
+{
+    "fields": {
+        "codename": "change_player",
+        "name": "Can change player",
+        "content_type": 18
+    },
+    "model": "auth.permission",
+    "pk": 53
+},
+{
+    "fields": {
+        "codename": "delete_player",
+        "name": "Can delete player",
+        "content_type": 18
+    },
+    "model": "auth.permission",
+    "pk": 54
+},
+{
+    "fields": {
+        "codename": "add_edge",
+        "name": "Can add edge",
+        "content_type": 19
+    },
+    "model": "auth.permission",
+    "pk": 55
+},
+{
+    "fields": {
+        "codename": "change_edge",
+        "name": "Can change edge",
+        "content_type": 19
+    },
+    "model": "auth.permission",
+    "pk": 56
+},
+{
+    "fields": {
+        "codename": "delete_edge",
+        "name": "Can delete edge",
+        "content_type": 19
+    },
+    "model": "auth.permission",
+    "pk": 57
+},
+{
+    "fields": {
+        "codename": "add_path",
+        "name": "Can add path",
+        "content_type": 20
+    },
+    "model": "auth.permission",
+    "pk": 58
+},
+{
+    "fields": {
+        "codename": "change_path",
+        "name": "Can change path",
+        "content_type": 20
+    },
+    "model": "auth.permission",
+    "pk": 59
+},
+{
+    "fields": {
+        "codename": "delete_path",
+        "name": "Can delete path",
+        "content_type": 20
+    },
+    "model": "auth.permission",
+    "pk": 60
+},
+{
+    "fields": {
+        "codename": "add_pathflowassignment",
+        "name": "Can add path flow assignment",
+        "content_type": 21
+    },
+    "model": "auth.permission",
+    "pk": 61
+},
+{
+    "fields": {
+        "codename": "change_pathflowassignment",
+        "name": "Can change path flow assignment",
+        "content_type": 21
+    },
+    "model": "auth.permission",
+    "pk": 62
+},
+{
+    "fields": {
+        "codename": "delete_pathflowassignment",
+        "name": "Can delete path flow assignment",
+        "content_type": 21
+    },
+    "model": "auth.permission",
+    "pk": 63
+},
+{
+    "fields": {
+        "codename": "add_gameturn",
+        "name": "Can add game turn",
+        "content_type": 22
+    },
+    "model": "auth.permission",
+    "pk": 64
+},
+{
+    "fields": {
+        "codename": "change_gameturn",
+        "name": "Can change game turn",
+        "content_type": 22
+    },
+    "model": "auth.permission",
+    "pk": 65
+},
+{
+    "fields": {
+        "codename": "delete_gameturn",
+        "name": "Can delete game turn",
+        "content_type": 22
+    },
+    "model": "auth.permission",
+    "pk": 66
+},
+{
+    "fields": {
+        "codename": "add_flowdistribution",
+        "name": "Can add flow distribution",
+        "content_type": 23
+    },
+    "model": "auth.permission",
+    "pk": 67
+},
+{
+    "fields": {
+        "codename": "change_flowdistribution",
+        "name": "Can change flow distribution",
+        "content_type": 23
+    },
+    "model": "auth.permission",
+    "pk": 68
+},
+{
+    "fields": {
+        "codename": "delete_flowdistribution",
+        "name": "Can delete flow distribution",
+        "content_type": 23
+    },
+    "model": "auth.permission",
+    "pk": 69
+},
+{
+    "fields": {
+        "codename": "add_learningrate",
+        "name": "Can add learning rate",
+        "content_type": 24
+    },
+    "model": "auth.permission",
+    "pk": 70
+},
+{
+    "fields": {
+        "codename": "change_learningrate",
+        "name": "Can change learning rate",
+        "content_type": 24
+    },
+    "model": "auth.permission",
+    "pk": 71
+},
+{
+    "fields": {
+        "codename": "delete_learningrate",
+        "name": "Can delete learning rate",
+        "content_type": 24
+    },
+    "model": "auth.permission",
+    "pk": 72
+},
+{
+    "fields": {
+        "codename": "add_edgecost",
+        "name": "Can add edge cost",
+        "content_type": 25
+    },
+    "model": "auth.permission",
+    "pk": 73
+},
+{
+    "fields": {
+        "codename": "change_edgecost",
+        "name": "Can change edge cost",
+        "content_type": 25
+    },
+    "model": "auth.permission",
+    "pk": 74
+},
+{
+    "fields": {
+        "codename": "delete_edgecost",
+        "name": "Can delete edge cost",
+        "content_type": 25
+    },
+    "model": "auth.permission",
+    "pk": 75
+},
+{
+    "fields": {
+        "codename": "add_graphcost",
+        "name": "Can add graph cost",
+        "content_type": 26
+    },
+    "model": "auth.permission",
+    "pk": 76
+},
+{
+    "fields": {
+        "codename": "change_graphcost",
+        "name": "Can change graph cost",
+        "content_type": 26
+    },
+    "model": "auth.permission",
+    "pk": 77
+},
+{
+    "fields": {
+        "codename": "delete_graphcost",
+        "name": "Can delete graph cost",
+        "content_type": 26
+    },
+    "model": "auth.permission",
+    "pk": 78
+},
+{
+    "fields": {
+        "codename": "add_game",
+        "name": "Can add game",
+        "content_type": 27
+    },
+    "model": "auth.permission",
+    "pk": 79
+},
+{
+    "fields": {
+        "codename": "change_game",
+        "name": "Can change game",
+        "content_type": 27
+    },
+    "model": "auth.permission",
+    "pk": 80
+},
+{
+    "fields": {
+        "codename": "delete_game",
+        "name": "Can delete game",
+        "content_type": 27
+    },
+    "model": "auth.permission",
+    "pk": 81
+},
+{
+    "fields": {
+        "codename": "add_request",
+        "name": "Can add request",
+        "content_type": 28
+    },
+    "model": "auth.permission",
+    "pk": 82
+},
+{
+    "fields": {
+        "codename": "change_request",
+        "name": "Can change request",
+        "content_type": 28
+    },
+    "model": "auth.permission",
+    "pk": 83
+},
+{
+    "fields": {
+        "codename": "delete_request",
+        "name": "Can delete request",
+        "content_type": 28
+    },
+    "model": "auth.permission",
+    "pk": 84
+},
+{
+    "fields": {
+        "codename": "add_response",
+        "name": "Can add response",
+        "content_type": 29
+    },
+    "model": "auth.permission",
+    "pk": 85
+},
+{
+    "fields": {
+        "codename": "change_response",
+        "name": "Can change response",
+        "content_type": 29
+    },
+    "model": "auth.permission",
+    "pk": 86
+},
+{
+    "fields": {
+        "codename": "delete_response",
+        "name": "Can delete response",
+        "content_type": 29
+    },
+    "model": "auth.permission",
+    "pk": 87
+},
+{
+    "fields": {
+        "codename": "add_sqlquery",
+        "name": "Can add sql query",
+        "content_type": 30
+    },
+    "model": "auth.permission",
+    "pk": 88
+},
+{
+    "fields": {
+        "codename": "change_sqlquery",
+        "name": "Can change sql query",
+        "content_type": 30
+    },
+    "model": "auth.permission",
+    "pk": 89
+},
+{
+    "fields": {
+        "codename": "delete_sqlquery",
+        "name": "Can delete sql query",
+        "content_type": 30
+    },
+    "model": "auth.permission",
+    "pk": 90
+},
+{
+    "fields": {
+        "codename": "add_profile",
+        "name": "Can add profile",
+        "content_type": 31
+    },
+    "model": "auth.permission",
+    "pk": 91
+},
+{
+    "fields": {
+        "codename": "change_profile",
+        "name": "Can change profile",
+        "content_type": 31
+    },
+    "model": "auth.permission",
+    "pk": 92
+},
+{
+    "fields": {
+        "codename": "delete_profile",
+        "name": "Can delete profile",
+        "content_type": 31
+    },
+    "model": "auth.permission",
+    "pk": 93
+},
+{
+    "fields": {
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2016-06-01T22:28:31.437Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$15000$brQFjWqwC2l3$iR+yYj0cWMDXcEfbmXFRWu208rS4oB1aUaobZplkPTc=",
+        "email": "",
+        "date_joined": "2016-06-01T22:28:28.534Z"
+    },
+    "model": "auth.user",
+    "pk": 1
+},
+{
+    "fields": {
+        "username": "ai_player",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": false,
+        "is_staff": false,
+        "last_login": "2016-06-01T22:31:19.132Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "ai_lab",
+        "email": "",
+        "date_joined": "2016-06-01T22:31:19.132Z"
+    },
+    "model": "auth.user",
+    "pk": 2
+},
+{
+    "fields": {
+        "superuser": true,
+        "arrival_rank": 1,
+        "rank": 1,
+        "keep": false,
+        "tested": false,
+        "game": null,
+        "user": 1,
+        "is_a_bot": false,
+        "player_model": null
+    },
+    "model": "graph.player",
+    "pk": 1
+},
+{
+    "fields": {
+        "superuser": false,
+        "arrival_rank": 0,
+        "rank": 0,
+        "keep": false,
+        "tested": true,
+        "game": "game_1",
+        "user": 2,
+        "is_a_bot": true,
+        "player_model": null
+    },
+    "model": "graph.player",
+    "pk": 2
+}
+]

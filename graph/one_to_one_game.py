@@ -31,8 +31,7 @@ def select_players_for_game():
     game = Game.objects.get(currently_in_use=True)
     current_graph = game.graph
     ai_player = Player.objects.get(user__username='ai_player')
-    non_ai_player = Player.objects.filter(tested =False,superuser=False).order_by('rank')[0]
-    pm_to_use = PlayerModel.objects.filter(graph=current_graph)
+    non_ai_player = Player.objects.filter(tested =False,superuser=False,is_a_bot = False).order_by('arrival_rank')[0]
     admins = Player.objects.filter(superuser= True)
 
     for admin in admins:
@@ -65,14 +64,7 @@ def select_players_for_game():
     pm_non_ai.save()
     non_ai_player.save()
 
-    for player in Player.objects.filter(tested = False):
-        player.rank = player.rank - 1
-        player.save()
-
-    for pm in PlayerModel.objects.filter(graph=current_graph):
-        if Player.objects.filter(player_model = pm).count() == 0:
-            Path.objects.filter(player_model=pm).delete()
-            pm.delete()
+    update_rank()
 
     return
 
