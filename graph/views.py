@@ -1267,20 +1267,6 @@ def waiting_room(request):
     player.save()
     update_rank()
     response = dict()
-
-
-    #try:
-      #  first_connected_player = Player.objects.filter(tested =False,superuser=False,is_a_bot = False).order_by('rank')[0]
-       # first_to_play = (player==first_connected_player)
-       # rank = player.rank-Player.objects.filter(tested =False,superuser=False,is_a_bot = True).order_by('rank').count()+1
-       # response['rank'] = rank
-   # except:
-      #  first_to_play = False
-      #  rank = 1
-       # response['rank'] =rank
-
-
-    #response['first_to_play']= first_to_play
     response['Success']=True
     template = 'graph/user_wait.djhtml'
     if not cache.get("waiting_time"):
@@ -1315,6 +1301,7 @@ def waiting_room(request):
     response['started_game'] = user.player.game.started
     if player.game.stopped:
         response['approve'] = player.keep
+        response['bot'] = player.is_a_bot
         html = render_to_string('graph/end_game.djhtml', response)
 
     else:

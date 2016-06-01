@@ -27,6 +27,7 @@
     <br /><br />
     <input id="username-hidden" type="hidden" name="username" value="{{ username }}" />
     <input id="approve-hidden" type="hidden" name="approve" value="{{ approve }}" />
+    <input id="bot-hidden" type="hidden" name="bot" value="{{ bot }}" />
 <input type="Submit" value="submit to Mturk" />
 </form>
 </div>
