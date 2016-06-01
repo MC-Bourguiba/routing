@@ -50,6 +50,7 @@ class Player(models.Model):
     game = models.ForeignKey('Game', null=True, blank=True)
     tested = models.BooleanField(default=False)
     is_a_bot = models.BooleanField(default=False)
+    keep = models.BooleanField(default=False)
     # flow_distribution = models.ForeignKey('FlowDistribution', null=True, blank=True)
     superuser = models.BooleanField(default=False)
 

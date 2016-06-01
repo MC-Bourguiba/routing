@@ -40,6 +40,7 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from ai import *
 from one_to_one_game import *
+from celery import shared_task
 import simplejson as json
 
 
@@ -54,12 +55,8 @@ logger = logging.getLogger(__name__)
 
 
 epsilon = 1E-10
-current_game_stopped = False
-current_game_started = False
-waiting_time = 10
+waiting_time = 30
 cache.set('waiting_time',waiting_time)
-cache.set('current_game_stopped ',False)
-cache.set('end_game',False)
 use_end_template = False
 a_game_being_played_currently = False
 notified_once = False
@@ -1097,12 +1094,6 @@ def start_game(request):
 
 def start_game_server():
     game = Game.objects.get(currently_in_use = True)
-    global current_game_stopped
-    global current_game_started
-    global a_game_being_played_currently
-    current_game_stopped = False
-    current_game_started = True
-    a_game_being_played_currently = True
     response = dict()
 
     if(game.started):
@@ -1119,28 +1110,22 @@ def start_game_server():
 
         game.save()
         response['success']=True
+        from tasks import game_force_next
         game_force_next.apply_async((game.name,), countdown=game.duration)
         return response
 
 
 @login_required
 def stop_game(request):
-    response = stop_game_server()
+    game = Game.objects.get(currently_in_use = True)
+    response = stop_game_server(game)
     return JsonResponse(response)
 
 
-def stop_game_server():
-    global current_game_stopped
-    global current_game_started
+def stop_game_server(game):
 
-    global a_game_being_played_currently
-    current_game_stopped = True
-    current_game_started = False
 
-    a_game_being_played_currently = False
-
-    game = Game.objects.get(currently_in_use = True)
-    dump_data_fixture('graph-' + str(game.graph.name)+'-'+str(datetime.now()) + '.json')
+    #dump_data_fixture('graph-' + str(game.graph.name)+'-'+str(datetime.now()) + '.json')
     game.stopped = True
     game.save()
     for user in User.objects.all():
@@ -1148,7 +1133,7 @@ def stop_game_server():
         cache.delete(get_hash(user.username) + 'path_ids')
 
     response = dict()
-    response['success'] = True
+    response['success'] = game.stopped
 
     response['use_end'] = no_more_games_left()
 
@@ -1279,8 +1264,10 @@ def waiting_room(request):
         response['reminder_rank'] = player.rank %10
         response['html'] = render_to_string('graph/one_vs_one.djhtml', response)
         if  player.rank ==1 and Game.objects.get(currently_in_use=True).stopped:
+            set_waiting_time_server()
             prepare_for_next_game()
             select_players_for_game()
+            waiting_countdown_server()
             response['game_created'] = True
         return render(request,template,response)
 
@@ -1305,12 +1292,15 @@ def waiting_room(request):
 
   
 @login_required
+
 def waiting_countdown(request):
     val = int (cache.get("waiting_time"))
     val = val-1
     cache.set("waiting_time",val)
     response = dict()
     response['ping']=val
+    if val <0:
+        start_game_server()
     return JsonResponse(response)
 
   
@@ -1318,10 +1308,10 @@ def waiting_countdown(request):
 def get_countdown(request):
     user = User.objects.get(username=request.user.username)
     player = Player.objects.get(user=user)
-    global current_game_started
     response= dict()
     response['user']=user.username
     response['countdown'] =cache.get('waiting_time')
+
     if player.game == None or (player.tested and player.game.stopped):
         response ['started'] = False
     else:
@@ -1366,6 +1356,7 @@ def heartbeat(request):
 
     post_data = request.POST
     username = post_data['username']
+    game = Game.objects.get(currently_in_use=True)
     player = Player.objects.get(user__username=username)
     timestamp = post_data['timestamp']
     cache.set(username + '_ts', timestamp)
@@ -1378,7 +1369,7 @@ def heartbeat(request):
     response['ts'] = cache.get(username + '_ts')
     response['notifed_once'] = notified_once
     response['queue_rank'] = str(username)+' '+str(player.rank)
-    response['current_game_stopped'] = current_game_stopped
+    response['current_game_stopped'] = game.stopped
     return JsonResponse(response)
 
 

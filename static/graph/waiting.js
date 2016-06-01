@@ -33,6 +33,7 @@ function sameOrigin(url) {
 }
 
 $(document).ready(function() {
+
 setInterval(get_countdown ,1000);
 setInterval(heartbeat_loop,1000);
 });
@@ -59,6 +60,7 @@ $.ajax({
             else if(json['countdown']>=0){
             console.log("countdown");
             document.getElementById("wait").innerHTML=json['countdown'];
+            //start_countdown();
             }
 
 
@@ -119,5 +121,28 @@ $.ajaxSetup({
         }
     }
 });
+
+function start_countdown(){
+   $.ajax({
+        url : "/graph/waiting_countdown/",
+        type : "GET",
+
+        success : function(json) {
+            console.log(json);
+            document.getElementById("wait").innerHTML=json['ping'];
+            if(json['ping']<0){
+            $("#start-game").click();
+            setTimeout(window.location.reload(),1000);
+
+            }
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+}
+
 
 csrftoken = getCookie('csrftoken');

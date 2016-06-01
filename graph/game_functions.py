@@ -43,7 +43,25 @@ def iterate_next_turn(game):
     next_turn.save()
 
     game.current_turn = next_turn
+    if game.current_turn.iteration < 10:
+        logger.debug("testing")
+    if game.current_turn.iteration > 10:
+        logger.debug("must stop here")
+        from views import stop_game_server
+        game.stopped = True
+        player = Player.objects.get(player_model__name='PM_NON_AI',game=game)
+        player.keep =keep_player(player,game)
+        player.save()
+        game.save()
+        for user in User.objects.all():
+            cache.delete(get_hash(user.username) + 'allocation')
+            cache.delete(get_hash(user.username) + 'path_ids')
+
+        logger.debug(str(game))
+        response = stop_game_server(game)
+        logger.debug('response'+str(response))
     game.save()
+
     for player in Player.objects.filter(is_a_bot = True,superuser=False,game=game):
          user = player.user
          allocation , path_ids = ai_play_server(user)
@@ -222,3 +240,11 @@ def update_cost(game):
 
     costs_cache_key = get_hash(game.pk) + 'iteration %d' % game.current_turn.iteration
     cache.set(costs_cache_key, get_current_edge_costs(game))
+
+
+def keep_player(player,game):
+    current_costs = get_user_costs_server(game.graph.name)['current_costs'][str(player)]
+    last_cost= current_costs[-1]
+    #list_costs = {int(k):v[0] for k,v in current_costs[str(player.user.username)]}
+    #last_cost = list_costs[:-1]
+    return abs(last_cost-1)<10E-2
