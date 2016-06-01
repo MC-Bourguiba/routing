@@ -25,7 +25,7 @@
     <textarea name="feedback" rows=10 cols=60 placeholder="Enter any feedback you have about the task here."></textarea>
 
     <br /><br />
-    <input id="username-hidden" type="hidden" name="graph" value="{{ username }}" />
+    <input id="username-hidden" type="hidden" name="username" value="{{ username }}" />
 <input type="Submit" value="submit to Mturk" />
 </form>
 </div>
