@@ -1288,7 +1288,6 @@ def waiting_room(request):
             waiting_countdown_server()
             response['game_created'] = True
         return render(request,template,response)
-
     if user.player.game.name == Game.objects.get(currently_in_use=True).name and ((int(cache.get("waiting_time"))<0  or user.player.game.started) and not(no_more_games_left())):
          return HttpResponseRedirect('/graph/accounts/profile/')
 

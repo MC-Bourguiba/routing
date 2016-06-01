@@ -63,9 +63,6 @@ def select_players_for_game():
     flow_distribution.save()
     pm_non_ai.save()
     non_ai_player.save()
-
-    update_rank()
-
     return
 
 
