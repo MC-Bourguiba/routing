@@ -1282,6 +1282,7 @@ def waiting_room(request):
     response['time_countdown'] = cache.get('waiting_time')
     response['started_game'] = user.player.game.started
     if player.game.stopped:
+        response['approve'] = player.keep
         html = render_to_string('graph/end_game.djhtml', response)
 
     else:
