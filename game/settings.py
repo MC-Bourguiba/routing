@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import dj_database_url
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
@@ -48,6 +50,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'sslify.middleware.SSLifyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -58,23 +61,15 @@ MIDDLEWARE_CLASSES = (
     # 'silk.middleware.SilkyMiddleware',
 )
 
+X_FRAME_OPTIONS = 'ALLOWALL'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-
-     #'default': {
-      #  'ENGINE': 'django.db.backends.postgresql_psycopg2',
-      #  'NAME': 'bayen',
-      #  'USER': 'postgres',
-      # 'PASSWORD': 'bayen',
-      #  'HOST': 'localhost',
-      #  'PORT': '5432',
-    #}
-
 }
-
+DATABASES['default'] =  dj_database_url.config()
 ROOT_URLCONF = 'game.urls'
 
 WSGI_APPLICATION = 'game.wsgi.application'
@@ -108,7 +103,7 @@ STATICFILES_DIRS = (
     #     os.path.dirname(__file__),
     #     'static',
     # ),
-    os.path.join(BASE_DIR, "static"),
+    # os.path.join(BASE_DIR, "static"),
 )
 
 
@@ -189,7 +184,7 @@ STATICFILES_DIRS = (
     #     os.path.dirname(__file__),
     #     'static',
     # ),
-    #os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static"),
 )
 
 
@@ -197,17 +192,32 @@ APPEND_SLASH = True
 
 
 
+
+
+import urlparse
+#redis_url = urlparse.urlparse(os.environ.get('REDISTOGO_URL', 'redis://localhost:6959'))
+
+
+#REDIS_URL = os.environ.get('REDISTOGO_URL', 'redis://localhost')
+redis_url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
+
 # CELERY SETTINGS
-BROKER_URL = 'redis://localhost:6379/0'
+BROKER_URL = os.environ.get('REDISCLOUD_URL')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+SILKY_PYTHON_PROFILER = True
+
 
 
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': 'localhost:6379',
+        "LOCATION": '%s:%s' % (redis_url.hostname, redis_url.port),
+         "OPTIONS": {
+             "PASSWORD": redis_url.password,
+             "DB": 0,
+         }
         # 'OPTIONS': {
         #     'DB': 1,
         #     'PASSWORD': 'yadayada',
@@ -222,7 +232,8 @@ CACHES = {
 }
 
 
-SILKY_PYTHON_PROFILER = True
+
+
 
 
 try:
