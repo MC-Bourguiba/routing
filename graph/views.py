@@ -1282,7 +1282,7 @@ def waiting_room(request):
         if  (player.rank ==1 and (Game.objects.get(currently_in_use=True).stopped or Game.objects.all().count()==1)):
 
             set_waiting_time_server()
-            if Game.objects.all().count()==1:
+            if Game.objects.all().count()==1 and Player.objects.filter(game =Game.objects.get(currently_in_use=True)).count==0:
                 select_players_for_game()
             else:
                 prepare_for_next_game()
