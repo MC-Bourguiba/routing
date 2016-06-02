@@ -1279,14 +1279,11 @@ def waiting_room(request):
         response['third'] = player.rank%10==3
         response['rank'] = player.rank
         response['html']  = render_to_string('graph/one_vs_one.djhtml', response)
-        if  (player.rank ==1 and (Game.objects.get(currently_in_use=True).stopped or (Game.objects.all().count()==1 and Player.objects.filter(game =Game.objects.get(currently_in_use=True)).count==0))):
+        if  (player.rank ==1 and (Game.objects.get(currently_in_use=True).stopped or Game.objects.all().count()==1)):
 
             set_waiting_time_server()
-            if Game.objects.all().count()==1:
-                select_players_for_game()
-            else:
-                prepare_for_next_game()
-                select_players_for_game()
+            prepare_for_next_game()
+            select_players_for_game()
             response['rank'] = player.rank
             waiting_countdown_server()
             response['game_created'] = True
