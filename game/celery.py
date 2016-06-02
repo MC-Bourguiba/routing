@@ -3,6 +3,9 @@ from __future__ import absolute_import
 import os
 
 from celery import Celery
+import urlparse
+
+REDIS_URL = os.environ.get('REDISCLOUD_URL')
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'game.settings')
@@ -10,9 +13,11 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'game.settings')
 from django.conf import settings
 
 
-app = Celery('proj',
-             broker='redis://localhost:6379/0',
-             backend='redis://localhost')
+app = Celery('proj',broker=REDIS_URL)
+#app = Celery('proj',
+ #            broker='redis://localhost:6379/0',
+  #           backend='redis://localhost')
+
 
 
 # Using a string here means the worker will not have to
