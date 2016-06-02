@@ -1264,10 +1264,12 @@ def waiting_room(request):
     user = User.objects.get(username=request.user.username)
     player = Player.objects.get(user=user)
     game =Game.objects.get(currently_in_use=True)
+    player.is_a_bot = False
+    player.save()
     if player.is_a_bot:
         player.is_a_bot = False
         player.save()
-        time.sleep(5)
+        time.sleep(10)
     first_user = Game.objects.all().count()==1 and Player.objects.filter(game=game,superuser=False).count()==1
 
     update_rank()
@@ -1322,15 +1324,17 @@ def waiting_room(request):
   
 @login_required
 
+
 def waiting_countdown(request):
-    val = int (cache.get("waiting_time"))
-    val = val-1
-    cache.set("waiting_time",val)
-    response = dict()
-    response['ping']=val
-    if val <0:
-        start_game_server()
-    return JsonResponse(response)
+    return
+ #   val = int (cache.get("waiting_time"))
+  #  val = val-1
+   # cache.set("waiting_time",val)
+    #response = dict()
+    #response['ping']=val
+    #if val <0:
+     #   start_game_server()
+    #return JsonResponse(response)
 
   
 @login_required
