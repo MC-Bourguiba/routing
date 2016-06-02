@@ -1247,17 +1247,6 @@ def set_game_mode(request):
 
     return JsonResponse(dict())
 
-def update_rank():
-    counter = 0
-    for player in Player.objects.filter(tested = False,is_a_bot=False,superuser=False).order_by('arrival_rank'):
-        player.rank = counter+1
-        counter = counter+1
-        player.save()
-    counter = 0
-    for player in  Player.objects.filter(tested = False,is_a_bot=True,superuser=False).order_by('arrival_rank'):
-        player.rank = len(Player.objects.filter(tested = False,is_a_bot=False,superuser=False)) +counter+1
-        counter = counter +1
-        player.save()
 
 @login_required
 def waiting_room(request):
@@ -1269,10 +1258,8 @@ def waiting_room(request):
     if player.is_a_bot:
         player.is_a_bot = False
         player.save()
-        time.sleep(10)
+        time.sleep(3)
     first_user = Game.objects.all().count()==1 and Player.objects.filter(game=game,superuser=False).count()==1
-
-    update_rank()
     response = dict()
     response['Success']=True
     template = 'graph/user_wait.djhtml'
