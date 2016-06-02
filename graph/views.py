@@ -1282,8 +1282,11 @@ def waiting_room(request):
         if  (player.rank ==1 and (Game.objects.get(currently_in_use=True).stopped or Game.objects.all().count()==1)):
 
             set_waiting_time_server()
-            prepare_for_next_game()
-            select_players_for_game()
+            if Game.objects.all().count()==1:
+                select_players_for_game()
+            else:
+                prepare_for_next_game()
+                select_players_for_game()
             response['rank'] = player.rank
             waiting_countdown_server()
             response['game_created'] = True
