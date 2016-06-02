@@ -64,9 +64,8 @@ $.ajax({
             }
 
 
-            else if
-            (json['game_left']){
-            console.log("test");
+            else if (json['countdown']<0){
+            window.location.reload();
             }
             else{
             document.getElementById("wait").innerHTML=0;

@@ -35,7 +35,7 @@ def game_force_next(game_name):
 
 @shared_task
 def change_player(game_name):
-    game = Game.objects.get(name=game_name)
+
 
     for player in Player.objects.filter(superuser = False):
         # TODO: Switch to AI player here

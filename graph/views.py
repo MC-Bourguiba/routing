@@ -42,7 +42,7 @@ from ai import *
 from one_to_one_game import *
 from celery import shared_task
 import simplejson as json
-
+import time
 
 from django.core import management
 from cStringIO import StringIO
@@ -1264,8 +1264,10 @@ def waiting_room(request):
     user = User.objects.get(username=request.user.username)
     player = Player.objects.get(user=user)
     game =Game.objects.get(currently_in_use=True)
-    player.is_a_bot = False
-    player.save()
+    if player.is_a_bot:
+        player.is_a_bot = False
+        player.save()
+        time.sleep(5)
     first_user = Game.objects.all().count()==1 and Player.objects.filter(game=game,superuser=False).count()==1
 
     update_rank()

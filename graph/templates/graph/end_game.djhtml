@@ -5,10 +5,11 @@
 <p style=" margin-top: 50;">Thank you for your participation</p>
 <p> You will receive your reward</p>
 <p> as soon as we check the validity of your answers</p>
+{% if approve %}
+<h4>Thanks for working on this task! You performed well!</h4>
+{% else %}
 <h4>Thanks for working on this task!</h4>
-
-
-
+{% endif %}
 <div type="hidden">
 <form type ="hidden" method="post" action="https://workersandbox.mturk.com/mturk/externalSubmit">
 </form>
@@ -19,8 +20,11 @@
 
     <input type="hidden" id="workerId"  name="workerId"/>
     <input type="hidden" id="hitId" name="hitId"/>
+    {% if approve %}
     <h4> If you want to be part of our next experience please enter your email </h4>
     <input type="email"  id="email" name="email" placeholder = "email"/>
+    {% else %}
+    {% endif %}
     <br /><br />
     <h4> Please enter your feedback</h4>
     <textarea name="feedback" rows=10 cols=60 placeholder="Enter any feedback you have about the task here."></textarea>
