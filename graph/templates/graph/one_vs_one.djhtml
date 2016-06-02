@@ -5,6 +5,7 @@
 <h2> Welcome to the routing game waiting room</h2>
 <p style=" margin-top: 50;">We are in the queue</p>
 <p> Please wait until the game finishes</p>
+<p> {{ first_user}} </p>
 <p> Thank you for your patience</p>
 {% if first %}
 <p style=" margin-top: 50;"> you are currently {{ rank }}st in the waiting list </p>
@@ -24,6 +25,6 @@
 
 {% block scripts %}
 <script type="text/javascript">
-window.setTimeout(function(){ document.location.reload(true); }, 60000);
+window.setTimeout(function(){ document.location.reload(true); }, 30000);
 </script>
 {% endblock %}

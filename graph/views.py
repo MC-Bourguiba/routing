@@ -1263,8 +1263,11 @@ def update_rank():
 def waiting_room(request):
     user = User.objects.get(username=request.user.username)
     player = Player.objects.get(user=user)
+    game =Game.objects.get(currently_in_use=True)
     player.is_a_bot = False
     player.save()
+    first_user = Game.objects.all().count()==1 and Player.objects.filter(game=game,superuser=False).count()==1
+
     update_rank()
     response = dict()
     response['Success']=True
@@ -1278,12 +1281,17 @@ def waiting_room(request):
         response['second']= player.rank%10==2
         response['third'] = player.rank%10==3
         response['rank'] = player.rank
+        response['first_user']=first_user
         response['html']  = render_to_string('graph/one_vs_one.djhtml', response)
-        if  (player.rank ==1 and (Game.objects.get(currently_in_use=True).stopped or Game.objects.all().count()==1)):
+        if  (player.rank ==1 and game.stopped) or first_user:
+
 
             set_waiting_time_server()
-            prepare_for_next_game()
-            select_players_for_game()
+            if first_user:
+               select_players_for_game()
+            else :
+                prepare_for_next_game()
+                select_players_for_game()
             response['rank'] = player.rank
             waiting_countdown_server()
             response['game_created'] = True

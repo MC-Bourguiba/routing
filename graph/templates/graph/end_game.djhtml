@@ -1,11 +1,10 @@
-
+<h1>Please refresh the page before submitting </h1>
 <div id="wrapper" style="text-align: center">
 <div id="yourdiv" style="display: inline-block;">
 <h2> The game has ended</h2>
 <p style=" margin-top: 50;">Thank you for your participation</p>
 <p> You will receive your reward</p>
 <p> as soon as we check the validity of your answers</p>
-<h1>Please refresh the page before submitting </h1>
 <h4>Thanks for working on this task!</h4>
 
 
@@ -20,9 +19,10 @@
 
     <input type="hidden" id="workerId"  name="workerId"/>
     <input type="hidden" id="hitId" name="hitId"/>
+    <h4> If you want to be part of our next experience please enter your email </h4>
+    <input type="email"  id="email" name="email" placeholder = "email"/>
     <br /><br />
     <h4> Please enter your feedback</h4>
-
     <textarea name="feedback" rows=10 cols=60 placeholder="Enter any feedback you have about the task here."></textarea>
 
     <br /><br />
