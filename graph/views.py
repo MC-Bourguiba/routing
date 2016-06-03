@@ -1275,7 +1275,7 @@ def waiting_room(request):
         response['rank'] = player.rank
         response['first_user']=first_user
         response['html']  = render_to_string('graph/one_vs_one.djhtml', response)
-        if  (player.rank ==1 and game.stopped) or first_user or (player.rank ==1 and not(game.started) and Player.objects.filter(game=game,superuser=False).count()==1 ):
+        if  (player.rank ==1 and game.stopped) or first_user or (player.rank ==1 and not(game.started) and (Player.objects.filter(game=game,superuser=False).count()==1 or Player.objects.filter(game=game,superuser=False).count()==0)):
 
 
             set_waiting_time_server()
