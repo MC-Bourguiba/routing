@@ -1253,6 +1253,7 @@ def waiting_room(request):
     user = User.objects.get(username=request.user.username)
     player = Player.objects.get(user=user)
     game =Game.objects.get(currently_in_use=True)
+    update_rank()
     player.is_a_bot = False
     player.save()
     if player.is_a_bot:
@@ -1307,6 +1308,18 @@ def waiting_room(request):
         html = render_to_string('graph/welcome_template.djhtml', response)
     response['html']= html
     return render(request,template,response)
+
+def update_rank():
+    counter = 0
+    for player in Player.objects.filter(tested = False,is_a_bot=False,superuser=False).order_by('arrival_rank'):
+        player.rank = counter+1
+        counter = counter+1
+        player.save()
+    counter = 0
+    for player in  Player.objects.filter(tested = False,is_a_bot=True,superuser=False).order_by('arrival_rank'):
+        player.rank = len(Player.objects.filter(tested = False,is_a_bot=False,superuser=False)) +counter+1
+        counter = counter +1
+        player.save()
 
   
 @login_required
