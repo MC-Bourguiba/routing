@@ -22,10 +22,6 @@ def create_new_player(user,superuser):
     player.save()
     # player.user = user
     #player.game = game
-
-
-
-
     success = True
 
 

@@ -3,7 +3,6 @@
 
 {% block navbar_extra_buttons %}
   <li class="navbar-text">
-      <p> No game is currently available. </p>
       <form action="" method="post">{% csrf_token %}
   </li>
   <li class="dropdown">

@@ -201,8 +201,13 @@ def index(request):
         return HttpResponseRedirect("/graph/accounts/profile/")
 
     else:
+
         return HttpResponseRedirect("/graph/accounts/login")
 
+def instructions(request):
+    template= 'graph/welcome_page.djhtml'
+    context = dict()
+    return render(request, template, context)
 
 @login_required
 
@@ -1250,9 +1255,12 @@ def set_game_mode(request):
 
 @login_required
 def waiting_room(request):
+
+
     user = User.objects.get(username=request.user.username)
     player = Player.objects.get(user=user)
     game =Game.objects.get(currently_in_use=True)
+
     update_rank()
     player.is_a_bot = False
     player.save()
@@ -1260,6 +1268,8 @@ def waiting_room(request):
         player.is_a_bot = False
         player.save()
         time.sleep(3)
+
+
     first_user = Game.objects.all().count()==1 and Player.objects.filter(game=game,superuser=False).count()==1
     response = dict()
     response['Success']=True
@@ -1280,14 +1290,26 @@ def waiting_room(request):
 
             set_waiting_time_server()
             if first_user:
+               if player.is_a_bot:
+                    player.is_a_bot = False
+                    player.save()
+                    time.sleep(3)
                select_players_for_game()
             else :
                 prepare_for_next_game()
+                if player.is_a_bot:
+                    player.is_a_bot = False
+                    player.save()
+                    time.sleep(3)
                 select_players_for_game()
             response['rank'] = player.rank
             waiting_countdown_server()
             response['game_created'] = True
         return render(request,template,response)
+    if not(get_first_player()==None) and not(game.started):
+        select_players_for_game()
+        set_waiting_time_server()
+        waiting_countdown_server()
     if user.player.game.name == Game.objects.get(currently_in_use=True).name and ((int(cache.get("waiting_time"))<0  or user.player.game.started) and not(no_more_games_left())):
          return HttpResponseRedirect('/graph/accounts/profile/')
 
@@ -1321,6 +1343,12 @@ def update_rank():
         counter = counter +1
         player.save()
 
+def get_first_player():
+    try:
+        pl = Player.objects.filter(tested = False,is_a_bot=False,superuser=False).order_by('arrival_rank')[0]
+    except:
+        pl = None
+    return pl
   
 @login_required
 

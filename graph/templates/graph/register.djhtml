@@ -5,10 +5,12 @@
 <div role="tabpanel" class="tab-pane active" id="login">
   <form action="" method="post">
     {{ form|bootstrap }} {% csrf_token %}
+
     <input type="submit" class="btn btn-primary" value="Create account" />
-   
+
   </form>
 </div>
+
 {% endblock %}
 
 {% block scripts%}

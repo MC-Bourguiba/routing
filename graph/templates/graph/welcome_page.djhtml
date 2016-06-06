@@ -1,18 +1,38 @@
-{% extends "graph/login-base.djhtml" %}
-{% load bootstrap %}
 
-{% block tabcontent %}
-<div role="tabpanel" class="tab-pane active" id="login">
-    {% if form.errors %}
-    <p class="error">Sorry, that's not a valid username or password</p>
-    {% endif %}
+{% extends "graph/index-wait.djhtml" %}
+{% load staticfiles %}
 
-    <form action="" method="post"> {% csrf_token %}
-    {{ form|bootstrap}}
-    <input type="submit" class="btn btn-primary" value="Login" />
-    <input type="hidden" name="next" value="{{ next|escape }}" />
-    </form>
-</div>
+{% block navbar_extra_buttons %}
+  <li class="navbar-text">
+
+      <form action="" method="post">{% csrf_token %}
+  </li>
+  <li class="dropdown">
+  </li>
+  <li>
+    <p class="navbar-btn">
+      <a id="login" class="btn btn-default" href="../login/" role="button">Login/Register</a>
+    </p>
+  </li>
+<input id="user" type="hidden" name="graph" value="{{ username }}" />
+{% endblock %}
+
+{% block content %}
+
+<div>
+  <div style=" text-align: justify; margin-top: 100px;
+    margin-bottom: 100px;
+    margin-right: 150px;
+    margin-left: 80px;">
+
+<h1>Welcome to the routing game experiment.</h2>
+
+<p>
+This page gives an introduction to the game, the purpose of the experiment,
+and detailed instructions on how to participate in the experiment and play the game.
+</p>
+
+
 <h2>I. Introduction</h2>
 
 <p>
@@ -111,11 +131,12 @@ The graphs show the history of your decisions (your allocations), and the histor
 
   </div>
 </div>
+
+
+
+
 {% endblock %}
-{% block scripts%}
-<script type="text/javascript">
-window.onload=function () {
-    $('#login-tab').addClass('active');
-};
-</script>
+{% block scripts %}
+<script src="{% static 'graph/welcome.js' %}"></script>
+<script src="{% static 'graph/common.js' %}"></script>
 {% endblock %}
