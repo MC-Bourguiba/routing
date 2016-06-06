@@ -39,6 +39,7 @@
 </div>
 {% block scripts %}
 <script>
+
 window.onload = function () {
     if (! localStorage.justOnce) {
         localStorage.setItem("justOnce", "true");
