@@ -94,7 +94,7 @@ function heartbeat_loop() {
         success : function(json) {
             if(json['game_available']&& not_notified_once){
               console.log('test_game_created');
-              setTimeout(window.location.reload(),4000);
+              setTimeout(window.location.reload(),1000);
               not_notified_once = false
             }
         }
