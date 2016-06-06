@@ -67,20 +67,44 @@ and will be asked to provide a valid email address to be contacted with further 
 
 <p>
 2) You need to register a new account with a username and a password.
-<p>
-<img src="../../../static/media/register.png">
+<p >
+<br></br>
+<img style=" text-align: center;
+    style="
+    height: auto;
+    width: auto;
+    max-width: 300px;
+    max-height: 300px; src="../../../static/media/register.png">
 </p>
 </p>
-
+<br></br>
 <p>
 3) Once you are logged-in, you will reach a waiting room, which will indicate how much time is left until the next game starts.
-(screenshot)
+<p >
+<br></br>
+<img style=" text-align: center;
+    style="
+    height: auto;
+    width: auto;
+    max-width: 300px;
+    max-height: 300px; src="../../../static/media/waiting.png">
 </p>
-
+</p>
+<br></br>
 <p>
 4) Once the game starts, you will see an interface that looks similar to the screenshot below.
-(screenshot)
+<p>
+<p >
+<br></br>
+<img style=" text-align: center;
+    style="
+    height: auto;
+    width: auto;
+    max-width: 300px;
+    max-height: 300px; src="../../../static/media/game.png">
 </p>
+</p>
+<br></br>
 
 <p>
 The graph on the left shows the network.
