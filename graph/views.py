@@ -239,6 +239,7 @@ def show_graph(request):
             context['username'] = user.username
             context['start'] = player_model.start_node.ui_id
             context['destination'] = player_model.destination_node.ui_id
+            context['turn_left'] = 10-g.current_turn.iteration
             context['flow'] = player_model.flow
             context['is_bot'] =user.player.is_a_bot
         except:
