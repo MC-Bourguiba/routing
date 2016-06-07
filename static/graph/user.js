@@ -619,4 +619,28 @@ function startTimer(duration, display) {
         }
     }, 1000);
 }
+$(document).ready(function() {
 
+setInterval(get_turn,1000);
+});
+
+
+function get_turn(){
+$.ajax({
+        url : "/graph/turn_left/",
+        type : "GET",
+
+        success : function(json) {
+            console.log(json);
+
+            document.getElementById("turn_left").innerHTML=json["turn_left"];
+
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+
+}
