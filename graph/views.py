@@ -1344,10 +1344,14 @@ def update_rank():
 
 def get_first_player():
     try:
-        pl = Player.objects.filter(tested = False,is_a_bot=False,superuser=False).order_by('arrival_rank')[0]
+        pl = Player.objects.filter(tested = True,is_a_bot=False,superuser=False).order_by('rank')[0]
+        if not(pl.game.started):
+            return pl
+        else :
+            return None
     except:
-        pl = None
-    return pl
+       return None
+
   
 @login_required
 
