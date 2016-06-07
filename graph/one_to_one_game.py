@@ -1,5 +1,5 @@
-from graph.views import *
-from graph.game_functions import *
+from views import *
+from game_functions import *
 
 
 
@@ -22,7 +22,7 @@ def create_ia_player(game):
 
 
 def select_players_for_game():
-    from graph.game_functions import create_default_distribution
+    from game_functions import create_default_distribution
     for user in User.objects.all():
         cache.delete(get_hash(user.username) + 'allocation')
         cache.delete(get_hash(user.username) + 'path_ids')
@@ -31,7 +31,10 @@ def select_players_for_game():
     game = Game.objects.get(currently_in_use=True)
     current_graph = game.graph
     ai_player = Player.objects.get(user__username='ai_player')
-    non_ai_player = Player.objects.filter(tested =False,superuser=False,is_a_bot = False).order_by('arrival_rank')[0]
+    try:
+        non_ai_player = Player.objects.filter(tested =False,superuser=False,is_a_bot = False).order_by('arrival_rank')[0]
+    except:
+        return
     admins = Player.objects.filter(superuser= True)
 
     for admin in admins:
@@ -90,3 +93,5 @@ def prepare_for_next_game():
     initial_turn.save()
     next_game.current_turn = initial_turn
     next_game.save()
+
+
