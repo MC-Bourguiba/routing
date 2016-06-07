@@ -1307,7 +1307,6 @@ def waiting_room(request):
             response['game_created'] = True
         return render(request,template,response)
     if not(get_first_player()==None) and not(game.started):
-        select_players_for_game()
         set_waiting_time_server()
         waiting_countdown_server()
     if user.player.game.name == Game.objects.get(currently_in_use=True).name and ((int(cache.get("waiting_time"))<0  or user.player.game.started) and not(no_more_games_left())):
