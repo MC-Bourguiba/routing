@@ -170,7 +170,7 @@ def create_account(request):
             new_user = form.save()
 
 
-            if create_new_player(new_user,  'superuser' in request.POST.dict()):
+            if create_new_player(new_user,  'superuser' in request.POST.dict(), request.POST['assignmentId'],request.POST['workerId'],  request.POST['hitId']):
                 return HttpResponseRedirect('/graph/index')
             else:
                 pass
@@ -202,7 +202,7 @@ def index(request):
 
     else:
 
-        return HttpResponseRedirect("/graph/accounts/login")
+        return HttpResponseRedirect("/graph/create_account/")
 
 def instructions(request):
     template= 'graph/welcome_page.djhtml'
@@ -239,7 +239,6 @@ def show_graph(request):
             context['username'] = user.username
             context['start'] = player_model.start_node.ui_id
             context['destination'] = player_model.destination_node.ui_id
-            context['turn_left'] = 10-g.current_turn.iteration
             context['flow'] = player_model.flow
             context['is_bot'] =user.player.is_a_bot
         except:
@@ -1323,6 +1322,9 @@ def waiting_room(request):
     if player.game.stopped:
         response['approve'] = player.keep
         response['bot'] = player.is_a_bot
+        response['assignmentId']=user.player.assignmentId
+        response['workerId']=user.player.workerId
+        response['hitId']=user.player.hitId
         html = render_to_string('graph/end_game.djhtml', response)
 
     else:
@@ -1333,12 +1335,12 @@ def waiting_room(request):
 
 def update_rank():
     counter = 0
-    for player in Player.objects.filter(tested = False,is_a_bot=False,superuser=False).order_by('arrival_rank'):
+    for player in Player.objects.filter(tested = False,is_a_bot=False,superuser=False).order_by('rank'):
         player.rank = counter+1
         counter = counter+1
         player.save()
     counter = 0
-    for player in  Player.objects.filter(tested = False,is_a_bot=True,superuser=False).order_by('arrival_rank'):
+    for player in  Player.objects.filter(tested = False,is_a_bot=True,superuser=False).order_by('rank'):
         player.rank = len(Player.objects.filter(tested = False,is_a_bot=False,superuser=False)) +counter+1
         counter = counter +1
         player.save()
@@ -1456,3 +1458,9 @@ def no_more_games_left():
     initial_number_of_games = len(Game.objects.all())
     used_games = len(Game.objects.filter(stopped=True))
     return initial_number_of_games==used_games
+
+def turn_left(request):
+    response=dict()
+    game = Game.objects.get(currently_in_use=True)
+    response['turn_left']=10-game.current_turn.iteration
+    return JsonResponse(response)

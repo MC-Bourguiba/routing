@@ -53,7 +53,9 @@ class Player(models.Model):
     keep = models.BooleanField(default=False)
     # flow_distribution = models.ForeignKey('FlowDistribution', null=True, blank=True)
     superuser = models.BooleanField(default=False)
-
+    workerId = models.TextField(null=True,blank=True)
+    hitId= models.TextField(null=True,blank=True)
+    assignmentId= models.TextField(null=True,blank=True)
     def __unicode__(self):
         return self.user.username
 
