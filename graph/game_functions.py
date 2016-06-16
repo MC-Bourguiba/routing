@@ -14,14 +14,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def create_new_player(user, game, superuser,assignmentId,workerId,hitId):
+def create_new_player(user, superuser,assignmentId,workerId,hitId):
     success = False
     player = Player(user=user,assignmentId=assignmentId,workerId=workerId,hitId=hitId)
     player.rank = Player.objects.filter(tested=False,superuser=False,is_a_bot=False).count()+1
     player.arrival_rank = Player.objects.filter(tested=False,superuser=False).count()+1
     player.save()
-    # player.user = user
-    #player.game = game
+
     success = True
 
 
