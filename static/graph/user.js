@@ -437,6 +437,7 @@ function update_previous_cost(username, iteration) {
             var cumulative_cost = {};
             var previous_cost = {};
             var previous_flow = {};
+            var total_cost = {};
 
             // previous_costs_dict[iter_key] = {};
 
@@ -494,7 +495,7 @@ function update_previous_cost(username, iteration) {
                     previous_flow[key].push(val);
                 }
             }
-             total_cost['total_cost']=[];
+               total_cost['total_cost']=[];
                for (var key in json['total_cost']) {
 
 
@@ -504,6 +505,8 @@ function update_previous_cost(username, iteration) {
                     console.log(val);
                     total_cost['total_cost'].push(val);
                 }
+
+            console.log(total_cost);
             // console.log('previous cost:');
             // console.log(previous_cost);
 
@@ -530,25 +533,7 @@ function update_previous_cost(username, iteration) {
                 bindto: '#chart'
             });
 
-            // var cumulative_chart = c3.generate({
-            //     size: {
-            //         height: 250,
-            //     },
-            //     data: {
-            //         json : cumulative_cost
-            //     },
-
-            //     axis: {
-            //         y: {
-            //             tick: {
-            //                 format: d3.format(".3f")
-            //             }
-            //         },
-            //     },
-
-            //     bindto: '#cumulative_chart'
-            // });
-            var cumulative_chart = c3.generate({
+             var cumulative_chart = c3.generate({
                  size: {
                      height: 250,
                  },
@@ -566,6 +551,7 @@ function update_previous_cost(username, iteration) {
 
                  bindto: '#cumulative_chart'
              });
+
             var flows_chart = c3.generate({
                 size: {
                     height: 250,
