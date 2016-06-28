@@ -676,48 +676,86 @@ def add_game(request):
   
 @login_required
 def get_previous_cost(request, username):
+    import time
+    t1  = int(round(time.time() * 1000))
     user = User.objects.get(username=username)
     game = user.player.game
     iteration = int(request.GET.dict()['iteration'])
     player = Player.objects.get(user__username=username)
-    path_ids = list(Path.objects.filter(player_model=player.player_model).values_list('id', flat=True))
-    path_idxs = range(len(path_ids))
 
+    path_ids = list(Path.objects.filter(player_model=player.player_model).values_list('id', flat=True))
+
+
+
+    path_idxs = range(len(path_ids))
+    total_cost = dict()
     paths = dict()
 
     previous_flows = dict()
     previous_costs = dict()
+    cache_key_pm_number= str(game)+str(player)+"number_pm"
+
+    if(not(cache.get(cache_key_pm_number))):
+        number_pm = Player.objects.filter(player_model = player.player_model).count()
+        cache.set(cache_key_pm_number,number_pm)
+    else:
+        number_pm=cache.get(cache_key_pm_number)
+
 
 
     for idx, p_id in zip(path_idxs, path_ids):
         path = Path.objects.get(id=p_id)
         paths[idx] = list(path.edges.values_list('edge_id', flat=True))
 
-        # for turn in game.turns.all():
+
         for turn in game.turns.filter(iteration__gte=iteration-1):
-            # cache_key_t_cost = str(turn.iteration) + game.name + "get_previous_cost" + username + "t_cost"
-            # cache_key_flow_ = str(turn.iteration) + game.name + "get_previous_cost" + username + "flow"
-            # if cache.get(cache_key_t_cost):
-            e_costs = turn.graph_cost.edge_costs
-            t_cost = 0
-            flow_distribution = FlowDistribution.objects.get(turn=turn, player=player)
-            flow = flow_distribution.path_assignments.get(path=path).flow
-            for e in path.edges.all():
-                t_cost += e_costs.get(edge=e).cost
+            cache_key_t_cost = str(turn.iteration) + game.name + "get_previous_cost" + username + "t_cost"+str(idx)
+            cache_key_flow = str(turn.iteration) + game.name + "get_previous_flow" + username + "flow"+str(idx)
+            cache_key_total = str(turn.iteration) + game.name + "get_previous_total" + username + "total"+str(idx)
+
             if idx not in previous_costs:
                 previous_costs[idx] = []
+            if cache.get(cache_key_t_cost):
+                t_cost=cache.get(cache_key_t_cost)
+            else:
+                e_costs = turn.graph_cost.edge_costs
+                t_cost = 0
+                for e in path.edges.all():
+                    t_cost += e_costs.get(edge=e).cost
+                cache.set(cache_key_t_cost,t_cost)
             previous_costs[idx].append(t_cost)
             if idx not in previous_flows:
                 previous_flows[idx] = []
+
+            if cache.get(cache_key_flow):
+                flow= cache.get(cache_key_flow)
+            else:
+                flow_distribution = FlowDistribution.objects.filter(turn=turn, player=player,game=game)[0]
+                flow = flow_distribution.path_assignments.filter(path=path)[0].flow
+                cache.set(cache_key_flow,flow)
             previous_flows[idx].append(flow)
+            cache.set(cache_key_total,t_cost*flow*number_pm/player.player_model.normalization_const)
+
+        for t in range(game.current_turn.iteration):
+            if t not in total_cost:
+                total_cost[t]=0
+            key = str(t) + game.name + "get_previous_total" + username + "total"+str(idx)
+            total_cost[t]+=cache.get(key)
+        t2=  int(round(time.time() * 1000))
+
+
 
     response = dict()
-    response['number_pm'] = Player.objects.filter(player_model= player.player_model,game=game).count()
+    response['number_pm'] = number_pm
     response['path_ids'] = path_ids
     response['paths'] = paths
     response['previous_costs'] = previous_costs
     response['previous_flows'] = previous_flows
+    response['total_cost']=total_cost
+    response['duration']=t2-t1
+    logger.debug("get_previous_cost "+str(player)+"for iteration "+str(iteration)+" : "+str(t2-t1))
     return JsonResponse(response)
+
 
 
   

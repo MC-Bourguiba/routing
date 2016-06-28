@@ -494,7 +494,16 @@ function update_previous_cost(username, iteration) {
                     previous_flow[key].push(val);
                 }
             }
+             total_cost['total_cost']=[];
+               for (var key in json['total_cost']) {
 
+
+                    console.log(key);
+
+                    val = parseFloat(json['total_cost'][key]);
+                    console.log(val);
+                    total_cost['total_cost'].push(val);
+                }
             // console.log('previous cost:');
             // console.log(previous_cost);
 
@@ -539,7 +548,24 @@ function update_previous_cost(username, iteration) {
 
             //     bindto: '#cumulative_chart'
             // });
+            var cumulative_chart = c3.generate({
+                 size: {
+                     height: 250,
+                 },
+                 data: {
+                     json : total_cost
+                 },
 
+                 axis: {
+                     y: {
+                         tick: {
+                             format: d3.format(".3f")
+                         }
+                     },
+                 },
+
+                 bindto: '#cumulative_chart'
+             });
             var flows_chart = c3.generate({
                 size: {
                     height: 250,
