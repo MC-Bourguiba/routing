@@ -82,7 +82,7 @@ def create_flow_distribution(game, player, allocation, path_ids, turn):
     # logger.debug("test create flow distribution turn :"+ str(turn))
 
     num_player_per_model = Player.objects.filter(player_model = player.player_model,game =game ).count()
-    flow_distribution, created = FlowDistribution.objects.get_or_create(turn=turn, player=player)
+    flow_distribution, created = FlowDistribution.objects.get_or_create(turn=turn,game=game, player=player)
     flow_distribution.path_assignments.clear()
 
     total_weight = float(sum(allocation))
@@ -98,7 +98,6 @@ def create_flow_distribution(game, player, allocation, path_ids, turn):
         else:
             # if all the weights are non-positive, assign the uniform distribution
             assignment.flow = 1. / nb_paths * player.player_model.flow
-        assignment.flow/=num_player_per_model
         assignment.save()
         flow_distribution.path_assignments.add(assignment)
 
@@ -156,29 +155,32 @@ def calculate_edge_flow(current_turn, game, use_cache=True):
         if use_cache and cache.get(get_hash(player.user.username) + 'allocation'):
             allocation = cache.get(get_hash(player.user.username) + 'allocation')
             path_ids = cache.get(get_hash(player.user.username) + 'path_ids')
-            if player.user.username == 'u1':
-                logger.debug('Getting allocation from cache:' + str(allocation))
+
 
         else:
             flow_distribution = None
-
+            logger.debug("not using cache : "+str(player))
             # Else copy from previous iteration.
             if current_turn.iteration == 0:
                 # If we are at the start, just use the default flow_distribution
                 # Must have been instiated!!!
-                flow_distribution = FlowDistribution.objects.get(turn=current_turn,
-                                                                 player=player)
+
+                try:
+                    flow_distribution = FlowDistribution.objects.filter(turn=current_turn,game=game, player=player)[0]
+                    flow_distribution.save()
+                except:
+                    flow_distribution=create_default_distribution(player.player_model,game,player)
+                    flow_distribution.save()
             else:
                 prev_iteration = current_turn.iteration - 1
 
                 # This should not fail!!!
-                flow_distribution = FlowDistribution.objects.get(turn__iteration=prev_iteration,
-                                                                 player=player)
+                flow_distribution = FlowDistribution.objects.filter(turn__iteration=prev_iteration,game=game,player=player)[0]
+                flow_distribution.save()
 
             for pfa in flow_distribution.path_assignments.all():
                 path_ids.append(pfa.path.id)
                 allocation.append(pfa.flow)
-
 
         flow_distribution = create_flow_distribution(game, player, allocation,
                                                      path_ids, current_turn)

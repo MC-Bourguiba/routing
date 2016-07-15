@@ -424,7 +424,7 @@ function update_slides() {
 
 
 function update_previous_cost(username, iteration) {
-    iteration = parseInt(iteration);
+   iteration = parseInt(iteration);
 
     $.ajax({
         url : "/graph/get_previous_cost/" + username + "/",
@@ -491,7 +491,7 @@ function update_previous_cost(username, iteration) {
                         continue;
                     }
 
-                    val = parseFloat(val)*parseInt(json['number_pm']);
+                    val = parseFloat(val);
                     previous_flow[key].push(val);
                 }
             }
@@ -499,14 +499,14 @@ function update_previous_cost(username, iteration) {
                for (var key in json['total_cost']) {
 
 
-                    console.log(key);
 
                     val = parseFloat(json['total_cost'][key]);
-                    console.log(val);
+
                     total_cost['total_cost'].push(val);
                 }
 
-            console.log(total_cost);
+
+            console.log(previous_flow);
             // console.log('previous cost:');
             // console.log(previous_cost);
 

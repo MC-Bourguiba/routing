@@ -80,6 +80,7 @@ class CustomUserForm(UserCreationForm):
      password2 = forms.CharField(label=_("Password confirmation"),
         widget=forms.PasswordInput,
         help_text=_("Enter the same password as above, for verification."))
+     accept = forms.BooleanField(label=_("I accept terms of use"), help_text=_("you must accept the terms of use in order to participate in the experiment (at the bottom of this page)."),initial=False, required=True)
      class Meta:
         model = User
         fields = ("username",)
@@ -171,7 +172,7 @@ def create_account(request):
 
 
             if create_new_player(new_user,  'superuser' in request.POST.dict(), request.POST['assignmentId'],request.POST['workerId'],  request.POST['hitId']):
-                return HttpResponseRedirect('/graph/index')
+                return HttpResponseRedirect('/accounts/login/')
             else:
                 pass
                 # TODO: Return empty page here
@@ -244,13 +245,9 @@ def show_graph(request):
         except:
             template = 'graph/user_wait.djhtml'
     else:
-        #graphs = [g.graph] if g.graph else []
-        # graphs = map(lambda g: g.name, Graph.objects.all())
+
         context['usernames'] = Player.objects.filter(superuser=False).values_list('user__username', flat=True)
-        # context['usernames'] = User.objects.values_list('username', flat=True)
-        #try:
-           # context['model_names'] = PlayerModel.objects.filter(graph__name=g.graph.name)
-        #except:
+
         context['model_names'] = PlayerModel.objects.all()
         context['graph_names'] = Graph.objects.all()
         context['games'] = Game.objects.all()
@@ -258,12 +255,11 @@ def show_graph(request):
 
 
 
-    # context['hidden'] = 'hidden'
+
     context['hidden'] = ''
     context['game_name'] = g.name
 
-    # if not g.started:
-    #     template = 'graph/user_wait.djhtml'
+
 
     try:
         if len(PlayerModel.objects.filter(in_use=False, graph__isnull=False).all()) == 0:
@@ -449,7 +445,7 @@ def predict_user_flows_all_turns(game, player):
 
             i = 0
             for p_id, prediction, actual_flow in zip(path_ids, x_predicted, actual_flows):
-                predictions[p_id].append(prediction/number_of_pm)
+                predictions[p_id].append(prediction)
                 actual['actual_%s' % str(p_id)].append(actual_flow)
                 i += 1
 
@@ -546,8 +542,8 @@ def get_user_costs_server( graph_name):
                 current_cost += (current_path_cost) * flow
 
             cumulative_cost += current_cost
-            current_costs[player.user.username].append(current_cost/normalization_const*number_of_PM_shared)
-            cumulative_costs[player.user.username].append(cumulative_cost/normalization_const*number_of_PM_shared)
+            current_costs[player.user.username].append(current_cost/normalization_const)
+            cumulative_costs[player.user.username].append(cumulative_cost/normalization_const)
 
         etas = estimate_best_eta_all_turns(game, player)
         logger.debug("#################")
@@ -730,11 +726,11 @@ def get_previous_cost(request, username):
             if cache.get(cache_key_flow):
                 flow= cache.get(cache_key_flow)
             else:
-                flow_distribution = FlowDistribution.objects.filter(turn=turn, player=player)[0]
+                flow_distribution = FlowDistribution.objects.filter(turn=turn,game=game, player=player)[0]
                 flow = flow_distribution.path_assignments.filter(path=path)[0].flow
                 cache.set(cache_key_flow,flow)
             previous_flows[idx].append(flow)
-            cache.set(cache_key_total,t_cost*flow*number_pm/player.player_model.normalization_const)
+            cache.set(cache_key_total,t_cost*flow)
 
         for t in range(game.current_turn.iteration):
             if t not in total_cost:

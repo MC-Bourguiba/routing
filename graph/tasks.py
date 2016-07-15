@@ -16,7 +16,7 @@ import time
 REDIS_URL = os.environ.get('REDISTOGO_URL', 'redis://localhost')
 
 
-player_timeout = 60
+player_timeout = 10
 
 
 @shared_task

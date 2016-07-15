@@ -3,13 +3,13 @@
 
 {% block navbar_extra_buttons %}
   <li class="navbar-text">
-      <div> <b> Time remaining: </b> <span id="time_countdown"></span></div>
+      <div> <b> Time remaining: </b> <span id="time_countdown" style="font-size: 20px; color:white;"></span></div>
   </li>
-    <li class="navbar-text">
-    <div> <b> Turns left: </b> <span id="turn_left" ></span></div>
+  <li class="navbar-text">
+    <div> <b> Turns left: </b> <span id="turn_left" style="font-size: 20px; color:white;" ></span></div>
   </li>
   <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Logged as: {{ username }} <span class="caret"></span></a>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="font-size: 20px;">Logged as: {{ username }} <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
       <li><a> Graph: {{ graph }}</a></li>
       <li><a> Start Node: {{ start }} </a></li>
@@ -44,10 +44,14 @@
     <div id="completed-turn" style="display: none" align="right">
       <p> You finished your turn! </p>
     </div>
-   
 
-    <a id="show-edge-btn" class="btn btn-default " href="#" role="button">Show edge costs</a>
-    <a id="clear-edge-btn" class="btn btn-default " href="#" role="button">Clear edge costs</a>
+
+
+
+      <li> Start Node: {{ start }} </li>
+      <li> Destination Node: {{ destination }} </li>
+      <li> Total Flow: {{ flow }} </li>
+
 
   </div>
 {% endblock %}
@@ -70,7 +74,7 @@
         <div id='chart'></div>
       </div>
     </div>
-    <div class="col-md-6">
+     <div class="col-md-6">
     <div class='cumulative_chart panel panel-info'>
     <div class="panel-heading">Total Cost</div>
     <div id='cumulative_chart'></div>
@@ -88,9 +92,6 @@
 {% endblock %}
 
 {% block scripts %}
-  <script>
-  var is_admin = false;
-  </script>
 
   </script><script src="{% static 'graph/user.js' %}"></script>
 {% endblock %}
