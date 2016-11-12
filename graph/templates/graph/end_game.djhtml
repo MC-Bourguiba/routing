@@ -5,6 +5,7 @@
 <p style=" margin-top: 50;">Thank you for your participation</p>
 <p> You will receive your reward</p>
 <p> as soon as we check the validity of your answers</p>
+<p> In case of any problem, please send an email to med.chedly.bourguiba [at] gmail .com </p>
 {% if approve %}
 <h4>Thanks for working on this task! You performed well!</h4>
 {% else %}
