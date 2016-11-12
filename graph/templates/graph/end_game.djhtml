@@ -1,4 +1,3 @@
-<h1>Please refresh the page before submitting </h1>
 <div id="wrapper" style="text-align: center">
 <div id="yourdiv" style="display: inline-block;">
 <h2> The game has ended</h2>
@@ -22,7 +21,6 @@
     <input type="hidden" id="workerId"  name="workerId" value="{{ workerId}}"/>
     <input type="hidden" id="hitId" name="hitId" value="{{ hitId}}"/>
     {% if approve %}
-    <h4> If you want to be part of our next experience please enter your email </h4>
     <input type="email"  id="email" name="email" placeholder = "email"/>
     {% else %}
     {% endif %}
