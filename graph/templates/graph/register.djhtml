@@ -4,6 +4,7 @@
 {% block tabcontent %}
 <div role="tabpanel" class="tab-pane active" id="login">
   <h3 style="text-align:center;color:#B93A32">Please make sure to accept the hit and to create an account before doing anything else in order to get paid</h3>
+  <h3 style="text-align:center;color:#B93A32">In case of any problem, please send an email to med.chedly.bourguiba [at] gmail .com </h3>
   <form action="" method="post">
     {{ form|bootstrap }} {% csrf_token %}
     <input type="hidden" id="assignmentId"  name="assignmentId"/>
