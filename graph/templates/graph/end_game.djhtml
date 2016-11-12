@@ -21,6 +21,7 @@
     <input type="hidden" id="workerId"  name="workerId" value="{{ workerId}}"/>
     <input type="hidden" id="hitId" name="hitId" value="{{ hitId}}"/>
     {% if approve %}
+    <h4> If you want to be part of our next experiment please enter your email </h4>
     <input type="email"  id="email" name="email" placeholder = "email"/>
     {% else %}
     {% endif %}
