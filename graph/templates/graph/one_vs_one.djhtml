@@ -6,6 +6,7 @@
 <p style=" margin-top: 50;">We are in the queue</p>
 <p> Please wait until the game finishes</p>
 <p> Thank you for your patience</p>
+<p> If you suspect that there is a problem, please send an email to med.chedly.bourguiba [at] gmail.com </p>
 {% if first %}
 <p style=" margin-top: 50;"> you are currently {{ rank }}st in the waiting list </p>
 {% elif second %}
